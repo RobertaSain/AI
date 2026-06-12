@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENGL 1302 Lesson Plan Prompt Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7fa',
+                            100: '#e4e8f0',
+                            500: '#3b5998',
+                            600: '#2e4373',
+                            700: '#1d2a4a',
+                            800: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-brand-700 via-brand-600 to-indigo-900 text-white py-6 px-4 shadow-lg">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm border border-white/20">
+                    <svg class="w-8 h-8 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">ENGL 1302 Prompt Generator</h1>
+                    <p class="text-indigo-200 text-xs md:text-sm mt-0.5">Designed for Community College Professors & Instructors</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs bg-white/20 px-3 py-1.5 rounded-full font-medium border border-white/10 backdrop-blur-xs">
+                    Course: Composition II / Lit & Research
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Form and Presets Column (Left 7 Columns on desktop) -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+            
+            <!-- Quick Presets -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Quick Lesson Presets
+                    </h2>
+                    <span class="text-xs text-slate-400">Click to load standard ENGL 1302 scenarios</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <button type="button" onclick="loadPreset('synthesis')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 transition duration-150 group">
+                        <div class="font-semibold text-xs text-indigo-600 group-hover:text-indigo-700">Preset 1</div>
+                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Source Synthesis</div>
+                        <div class="text-xs text-slate-500 mt-1">Analyzing conflicting perspectives</div>
+                    </button>
+                    <button type="button" onclick="loadPreset('rhetoric')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 transition duration-150 group">
+                        <div class="font-semibold text-xs text-indigo-600 group-hover:text-indigo-700">Preset 2</div>
+                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Rhetorical Fallacies</div>
+                        <div class="text-xs text-slate-500 mt-1">Evaluating media propaganda</div>
+                    </button>
+                    <button type="button" onclick="loadPreset('database')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 transition duration-150 group">
+                        <div class="font-semibold text-xs text-indigo-600 group-hover:text-indigo-700">Preset 3</div>
+                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Library Database Research</div>
+                        <div class="text-xs text-slate-500 mt-1">Keywords and query structure</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Input Form -->
+            <form id="promptForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col gap-6" oninput="updatePrompt()">
+                
+                <!-- Section 1: Basic Information -->
+                <div>
+                    <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">1</span>
+                        Basic Information & Taxonomy
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="lessonTitle" class="block text-sm font-medium text-slate-700 mb-1">Lesson Title</label>
+                            <input type="text" id="lessonTitle" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Synthesizing Conflicting Sources">
+                        </div>
+                        
+                        <div>
+                            <label for="bloomLevel" class="block text-sm font-medium text-slate-700 mb-1">Bloom's Taxonomy Level</label>
+                            <select id="bloomLevel" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm bg-white">
+                                <option value="Remembering">Remembering (Recognizing, recalling)</option>
+                                <option value="Understanding">Understanding (Explaining, summarizing)</option>
+                                <option value="Applying" selected>Applying (Using information in new situations)</option>
+                                <option value="Analyzing">Analyzing (Drawing connections, comparing)</option>
+                                <option value="Evaluating">Evaluating (Justifying a stand, critiquing)</option>
+                                <option value="Creating">Creating (Producing new or original work)</option>
+                            </select>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label for="audience" class="block text-sm font-medium text-slate-700 mb-1">Target Audience</label>
+                            <input type="text" id="audience" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., First-generation and diverse community college freshmen" value="Community college students in ENGL 1302 (Composition II)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Core Pedagogy -->
+                <div>
+                    <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">2</span>
+                        Core Pedagogy & Scope
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label for="objectives" class="block text-sm font-medium text-slate-700 mb-1">Learning Objectives (SWBAT)</label>
+                            <textarea id="objectives" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Define clear, measurable goals starting with action verbs..."></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="topics" class="block text-sm font-medium text-slate-700 mb-1">Topics Covered (List)</label>
+                                <textarea id="topics" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Credibility, Synthesis matrix, Academic integrity, Signal phrases"></textarea>
+                            </div>
+
+                            <div>
+                                <label for="keyTerms" class="block text-sm font-medium text-slate-700 mb-1">Key Terms & Vocabulary</label>
+                                <textarea id="keyTerms" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Synthesis, Attribution, Triangulation, Counterargument"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Engagement Elements -->
+                <div>
+                    <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">3</span>
+                        Engagement & Practice
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="interactiveActivities" class="block text-sm font-medium text-slate-700 mb-1">Interactive Learning Activities</label>
+                                <textarea id="interactiveActivities" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Active learning tasks (e.g., Jigsaw reading, Think-Pair-Share)"></textarea>
+                            </div>
+
+                            <div>
+                                <label for="teamProjects" class="block text-sm font-medium text-slate-700 mb-1">Collaborative/Team Projects</label>
+                                <textarea id="teamProjects" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Group activities or peer-review workshops..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="caseStudies" class="block text-sm font-medium text-slate-700 mb-1">Case Studies / Scenarios</label>
+                                <textarea id="caseStudies" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Analyze real scenarios or text critiques..."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="labs" class="block text-sm font-medium text-slate-700 mb-1">In-class Labs / Hands-on Writing Workshops</label>
+                                <textarea id="labs" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Drafting database queries, live paraphrasing labs..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Pedagogical Context & Accessibility -->
+                <div>
+                    <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">4</span>
+                        Context, Analogies & ADA Compliance
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="analogies" class="block text-sm font-medium text-slate-700 mb-1">Analogies & Conceptual Metaphors</label>
+                                <textarea id="analogies" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Comparing source synthesis to hosting a dinner party..."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="realWorld" class="block text-sm font-medium text-slate-700 mb-1">Real-World Connections & Application</label>
+                                <textarea id="realWorld" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Evaluating reviews before buying a car or picking a restaurant..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="assessments" class="block text-sm font-medium text-slate-700 mb-1">Assessments (Formative & Summative)</label>
+                                <textarea id="assessments" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Formative (e.g., exit ticket, polling) and Summative (e.g., research proposal draft)..."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="adaCompliance" class="block text-sm font-medium text-slate-700 mb-1">ADA Compliance & Universal Design (UDL)</label>
+                                <textarea id="adaCompliance" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Providing alt text, transcripts, multi-modal formats, high-contrast slides..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+        </section>
+
+        <!-- Preview Column (Right 5 Columns on desktop) -->
+        <section class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Sticky Preview Card -->
+            <div class="bg-white rounded-xl shadow-md border border-indigo-100 p-6 flex flex-col gap-4 lg:sticky lg:top-6">
+                
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold text-brand-800">Generated Prompt</h2>
+                        <p class="text-xs text-slate-500">Updates live as you configure the parameters on the left</p>
+                    </div>
+                    
+                    <!-- Copy Button -->
+                    <button type="button" onclick="copyPromptText()" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-4 py-2 rounded-lg transition shadow-xs">
+                        <svg id="copyIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 13h6m-6-4h6m-6-4h3"></path>
+                        </svg>
+                        <span id="copyText">Copy Prompt</span>
+                    </button>
+                </div>
+
+                <!-- Live Toast Banner -->
+                <div id="toast" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-lg text-xs font-semibold flex items-center justify-between animate-pulse">
+                    <span>Prompt copied to your clipboard! Ready to paste into ChatGPT, Claude, etc.</span>
+                    <button onclick="document.getElementById('toast').classList.add('hidden')" class="text-emerald-500 hover:text-emerald-700 font-bold">&times;</button>
+                </div>
+
+                <!-- Prompt Container -->
+                <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-xs font-mono text-slate-700 overflow-y-auto max-h-[60vh] md:max-h-[70vh] flex-1 whitespace-pre-wrap leading-relaxed select-all" id="promptOutput">
+                    <!-- Dynamic prompt will load here -->
+                </div>
+
+                <!-- Instruction Note -->
+                <div class="bg-indigo-50 rounded-lg p-3.5 border border-indigo-100 flex items-start gap-3">
+                    <svg class="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="text-xs text-indigo-900 leading-normal">
+                        <strong class="font-bold">How to use:</strong> Copy this prompt and paste it into any powerful AI assistant (e.g., Gemini, Claude, ChatGPT, Llama). The AI will process these structured pedagogic guidelines to output a full, comprehensive, ready-to-use lesson plan for your college course.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-6 px-4 mt-auto border-t border-slate-700 text-center text-xs">
+        <div class="max-w-7xl mx-auto space-y-1">
+            <p>&copy; 2026 Community College English Instructional Toolkit.</p>
+            <p>Empowering educators to leverage structured generative AI frameworks effectively.</p>
+        </div>
+    </footer>
+
+    <!-- Scripting for live generation & preset loading -->
+    <script>
+        // Preset configurations
+        const presets = {
+            synthesis: {
+                title: "The Art of Synthesis: Constructing the Conversation Matrix",
+                bloom: "Analyzing",
+                audience: "Community college sophomore/freshman students in ENGL 1302, working toward their major research paper. Highly diverse academic backgrounds.",
+                objectives: "1. Define the difference between simple summarization and deep rhetorical synthesis.\n2. Construct a 'synthesis matrix' comparing three conflicting viewpoints on a socio-cultural topic.\n3. Draft standard signal phrases linking divergent arguments fluidly within a cohesive paragraph.",
+                topics: "- Summary vs. Synthesis\n- Designing a synthesis matrix table\n- Using active linking verbs (concedes, counters, corroborates, emphasizes)\n- Creating a unified organizational structure",
+                keyTerms: "Synthesis, Synthesis Matrix, Interlocutor, Conversation Metaphor, Corroboration, Counterargument",
+                interactiveActivities: "Think-Pair-Share: Give pairs of students three short, conflicting 2-sentence opinions on artificial intelligence. Ask them to write a single synthesized sentence combining all three without using 'and' as the primary joiner.",
+                teamProjects: "Synthesis Speed-Dating: Assign groups representing different scholars/authors. They must visit other groups' tables, hold structured debates, and draft an inline synthesis grid capturing the outcome of the debate.",
+                caseStudies: "Analyze a poorly written essay excerpt that relies on 'patchwriting' (simply listing authors sequentially without putting them in conversation) versus a highly integrated paragraph to highlight the contrast.",
+                labs: "Synthesis Matrix Lab: Students open shared digital spreadsheets, copy in their own research source summaries, and map out mutual key themes under instructor guidance.",
+                analogies: "The Dinner Party Metaphor (Kenneth Burke's parlor): Imagine arriving late to a busy dinner party. Multiple guests are arguing. You can't just shout out your opinion immediately; you must listen first to understand who is agreeing with whom, then make your contribution relevant to their ongoing conversation.",
+                realWorld: "Selecting a restaurant using online reviews (Yelp/Google). Customers don't look at just one review; they synthesize commonalities (e.g., 'Reviews agree the food is great, but wait times are long').",
+                assessments: "Formative: Exit ticket requiring students to write a synthesis sentence incorporating two opposing views using 'although'.\nSummative: Draft of a 2-page literature review synthesizing three sources from their preliminary bibliography.",
+                adaCompliance: "Provide printable and screen-reader friendly PDF versions of the synthesis matrix template, use highly descriptive alt text for diagrams explaining synthesis, and caption all micro-lecture introduction videos."
+            },
+            rhetoric: {
+                title: "Deconstructing Media Logic: Rhetorical Fallacies in the Public Square",
+                bloom: "Evaluating",
+                audience: "Diverse ENGL 1302 community college class; many are non-traditional, adult learners needing analytical media literacy skills.",
+                objectives: "1. Distinguish between emotional appeal and logical argumentation.\n2. Identify and describe common fallacies (Ad Hominem, Strawman, False Dilemma, Slippery Slope) within contemporary news and advertising.\n3. Formulate an evidence-based critique explaining how a logical fallacy undermines an author's rhetorical position.",
+                topics: "- The Rhetorical Triangle (Ethos, Pathos, Logos)\n- Fallacies of relevance, distraction, and presumption\n- Impact of fallacious logic on modern media polarization\n- Strategies to counter fallacious reasoning in research writing",
+                keyTerms: "Rhetorical Fallacy, Strawman, False Dilemma, Ad Hominem, Slippery Slope, Cognitive Bias",
+                interactiveActivities: "Fallacy Hunt: In small groups, analyze pre-selected print advertisements or short video political speeches on a digital padlet, labeling instances of logical fallacies they spot in real-time.",
+                teamProjects: "The Propaganda Campaign: In teams of 3-4, students intentionally design a short, satirical advertisement/pitch utilizing at least three different fallacies, then swap with another team who must identify and 'expose' the faulty logic.",
+                caseStudies: "Analyzing historic speeches or public service announcements (e.g., anti-drug campaigns or political campaign ads) to trace how fear-mongering and slippery slope arguments are constructed.",
+                labs: "Media Lab: Working in the library lab space, students evaluate a popular opinion article on a topic of their choice and flag logical fallacies using dynamic digital annotators (like Hypothesis).",
+                analogies: "The 'House of Cards' Analogy: Building an argument with fallacies is like constructing a house of cards. It looks structured and impressive from a distance, but the moment you test the logical integrity of a single piece, the entire structure collapses.",
+                realWorld: "Spotting manipulative clickbait online, click-through clickbait headlines, or analyzing car sales strategies that try to create artificial scarcity to pressure buyers.",
+                assessments: "Formative: A digital quiz matching examples to their respective rhetorical fallacies.\nSummative: A 3-page critique of an editorial's rhetorical weaknesses, with specific focus on identifying logical fallacies.",
+                adaCompliance: "Ensure all selected video clips have synchronized closed captions. Provide full transcripts of speeches. Ensure the digital Padlet board is fully navigable using standard keyboard commands."
+            },
+            database: {
+                title: "Beyond Google: Precision Keyword Strategies for Academic Research",
+                bloom: "Applying",
+                audience: "Community college students starting college-level research for the first time. Need scaffolding to move past basic search boxes.",
+                objectives: "1. Translate a complex research question into actionable keyword strings.\n2. Execute advanced searches utilizing Boolean Operators (AND, OR, NOT) and truncation.\n3. Evaluate library database search results for relevance, peer-reviewed status, and academic rigor.",
+                topics: "- The limits of consumer search engines (Google vs. Academic Databases)\n- Brainstorming synonyms, broader terms, and narrower terms\n- Constructing complex Boolean search query strings\n- Navigating database filters (peer-review, date range, geography)",
+                keyTerms: "Boolean Operators, Truncation (*), Wildcards, Query String, Peer-Review, Scholarly Database",
+                interactiveActivities: "Keyword Scavenger Hunt: Students are given a single broad topic (e.g., climate change and urban design) and have 10 minutes to find the most specific peer-reviewed article they can using targeted boolean search strings.",
+                teamProjects: "Peer Query Workshop: Working in pairs, students review each other's research questions, exchange keyword suggestions, and co-develop query strings that yielded the most relevant search result sets.",
+                caseStudies: "Comparing a basic Google search query return vs. a targeted query in EBSCO Host or JSTOR on the exact same topic, charting the differences in source types, reliability, and academic utility.",
+                labs: "Hands-on Library Database Lab: Active searching session using real library terminals. Students must successfully locate and download at least two peer-reviewed academic journal articles that align with their working thesis.",
+                analogies: "The Grocery Store Layout: Navigating a massive library database is like finding a specific item in a mega-grocery store. You don't wander randomly; you look at the category signs (Subject filters), use logical paths, and search specifically by aisle groupings (Boolean terms).",
+                realWorld: "Using filters and keywords on Amazon, streaming platforms (Netflix/Spotify), or real estate search engines to find specific products with nested criteria.",
+                assessments: "Formative: A screenshot submission of a library database query string that successfully yields a targeted set of peer-reviewed articles.\nSummative: A formal annotated bibliography entry detailing the exact search string used to discover the source.",
+                adaCompliance: "Format database instruction sheets for easy zoom and high-contrast styling. Ensure screen-reader capability on all database search tutorials. Provide text alternative diagrams for Boolean Venn Diagrams."
+            }
+        };
+
+        // Initialize with standard values on window load
+        window.onload = function() {
+            loadPreset('synthesis');
+        };
+
+        // Load Preset helper
+        function loadPreset(key) {
+            const data = presets[key];
+            if (!data) return;
+
+            document.getElementById('lessonTitle').value = data.title;
+            document.getElementById('bloomLevel').value = data.bloom;
+            document.getElementById('audience').value = data.audience;
+            document.getElementById('objectives').value = data.objectives;
+            document.getElementById('topics').value = data.topics;
+            document.getElementById('keyTerms').value = data.keyTerms;
+            document.getElementById('interactiveActivities').value = data.interactiveActivities;
+            document.getElementById('teamProjects').value = data.teamProjects;
+            document.getElementById('caseStudies').value = data.caseStudies;
+            document.getElementById('labs').value = data.labs;
+            document.getElementById('analogies').value = data.analogies;
+            document.getElementById('realWorld').value = data.realWorld;
+            document.getElementById('assessments').value = data.assessments;
+            document.getElementById('adaCompliance').value = data.adaCompliance;
+
+            updatePrompt();
+        }
+
+        // Dynamically update prompt text output
+        function updatePrompt() {
+            const title = document.getElementById('lessonTitle').value || "[Lesson Title]";
+            const bloom = document.getElementById('bloomLevel').value;
+            const audience = document.getElementById('audience').value || "[Target Audience]";
+            const objectives = document.getElementById('objectives').value || "[Objectives not yet specified]";
+            const topics = document.getElementById('topics').value || "[Topics not yet specified]";
+            const keyTerms = document.getElementById('keyTerms').value || "[Key terms not yet specified]";
+            const interactiveActivities = document.getElementById('interactiveActivities').value || "[Interactive activities not yet specified]";
+            const teamProjects = document.getElementById('teamProjects').value || "[Team projects not yet specified]";
+            const caseStudies = document.getElementById('caseStudies').value || "[Case studies not yet specified]";
+            const labs = document.getElementById('labs').value || "[Labs or hands-on activities not yet specified]";
+            const analogies = document.getElementById('analogies').value || "[Analogies not yet specified]";
+            const realWorld = document.getElementById('realWorld').value || "[Real-world connections not yet specified]";
+            const assessments = document.getElementById('assessments').value || "[Assessments not yet specified]";
+            const adaCompliance = document.getElementById('adaCompliance').value || "[ADA guidelines not yet specified]";
+
+            const promptText = `Act as an expert instructional designer, curriculum specialist, and veteran community college professor teaching ENGL 1302 (Composition II / Literature & Research). 
+
+Develop a comprehensive, highly engaging, and pedagogically sound lesson plan designed to support the diverse needs of community college students based on the following specific parameters:
+
+### 1. LESSON OVERVIEW
+- **Lesson Title:** ${title}
+- **Target Audience:** ${audience}
+- **Bloom's Taxonomy Target Level:** ${bloom}
+
+### 2. PEDAGOGICAL STRUCTURE
+- **Measurable Learning Objectives (SWBAT):**
+${objectives.split('\n').map(line => '  ' + line).join('\n')}
+
+- **Topics to Cover:**
+${topics.split('\n').map(line => '  ' + line).join('\n')}
+
+- **Key Terms & Vocabulary:**
+${keyTerms.split('\n').map(line => '  ' + line).join('\n')}
+
+### 3. ACTIVE ENGAGEMENT & REINFORCEMENT
+- **Interactive Class Activities:**
+${interactiveActivities.split('\n').map(line => '  ' + line).join('\n')}
+
+- **Collaborative/Team Projects:**
+${teamProjects.split('\n').map(line => '  ' + line).join('\n')}
+
+- **Case Studies / Analytical Scenarios:**
+${caseStudies.split('\n').map(line => '  ' + line).join('\n')}
+
+- **Hands-on Workshop/Writing Lab:**
+${labs.split('\n').map(line => '  ' + line).join('\n')}
+
+### 4. COGNITIVE ANCHORS
+- **Conceptual Analogies / Metaphors:**
+${analogies.split('\n').map(line => '  ' + line).join('\n')}
+
+- **Real-World Connections:**
+${realWorld.split('\n').map(line => '  ' + line).join('\n')}
+
+### 5. ASSESSMENTS & ACCESSIBILITY
+- **Formative & Summative Assessments:**
+${assessments.split('\n').map(line => '  ' + line).join('\n')}
+
+- **ADA Compliance & Universal Design (UDL) Features:**
+${adaCompliance.split('\n').map(line => '  ' + line).join('\n')}
+
+---
+
+### INSTRUCTIONS FOR OUTPUT FORMAT:
+Using the criteria above, produce a fully fleshed-out lesson plan. Structure your response with the following sections:
+1. **Lesson Introduction & Hook (10-15 mins):** Use the analogies or real-world metaphors to frame the day's relevance.
+2. **Direct Instruction Outline (20-30 mins):** Provide step-by-step lecture notes, modeling sequences, and exact definitions for Key Terms.
+3. **Active Student Practice (30-40 mins):** Detailing how to facilitate the Interactive Class Activity, the Workshop/Lab, or Team projects.
+4. **Scaffolded Handout Script:** Write out the actual text/content that I should print on a worksheet or share in Canvas (LMS) for the students.
+5. **Assessment Delivery Guide:** Include instructions on how to grade or debrief the formative exit-tickets/assessments.
+6. **ADA Adaptations:** Explicitly outline instructions for alternative delivery paths (e.g. for visually/hearing impaired or asynchronous online students) ensuring absolute compliance.`;
+
+            document.getElementById('promptOutput').textContent = promptText;
+        }
+
+        // Clipboard Copy Utility using recommended iFrame-compliant document.execCommand fallback
+        function copyPromptText() {
+            const promptOutput = document.getElementById('promptOutput');
+            const range = document.createRange();
+            range.selectNodeContents(promptOutput);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            try {
+                // Execute standard copy command (recommended fallback for iframe environments)
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast();
+                } else {
+                    console.error("Failed to copy text via execCommand.");
+                }
+            } catch (err) {
+                console.error("Unable to copy", err);
+            }
+
+            // Deselect text to maintain clean styling
+            selection.removeAllRanges();
+        }
+
+        // Show elegant success notification toast
+        function showToast() {
+            const toast = document.getElementById('toast');
+            const copyIcon = document.getElementById('copyIcon');
+            const copyText = document.getElementById('copyText');
+            
+            toast.classList.remove('hidden');
+            copyText.textContent = "Copied!";
+            
+            // Revert button text/icon after 3.5 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                copyText.textContent = "Copy Prompt";
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
