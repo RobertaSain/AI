@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGL 1302 Lesson Plan Prompt Generator</title>
+    <title>ENGL 1302 Asynchronous Prompt Generator</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,12 +12,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f5f7fa',
-                            100: '#e4e8f0',
-                            500: '#3b5998',
-                            600: '#2e4373',
-                            700: '#1d2a4a',
-                            800: '#0f172a'
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            500: '#102a43',
+                            600: '#243b53',
+                            700: '#334e68',
+                            800: '#486581'
                         }
                     }
                 }
@@ -45,22 +45,22 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
 
     <!-- Header -->
-    <header class="bg-gradient-to-r from-brand-700 via-brand-600 to-indigo-900 text-white py-6 px-4 shadow-lg">
+    <header class="bg-gradient-to-r from-brand-500 via-brand-600 to-slate-900 text-white py-6 px-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
                 <div class="bg-white/10 p-2.5 rounded-lg backdrop-blur-sm border border-white/20">
-                    <svg class="w-8 h-8 text-indigo-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    <svg class="w-8 h-8 text-teal-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path>
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">ENGL 1302 Prompt Generator</h1>
-                    <p class="text-indigo-200 text-xs md:text-sm mt-0.5">Designed for Community College Professors & Instructors</p>
+                    <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Asynchronous ENGL 1302 Prompt Generator</h1>
+                    <p class="text-teal-200 text-xs md:text-sm mt-0.5">Optimized for Distance Learning & Online Community College Courses</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
                 <span class="text-xs bg-white/20 px-3 py-1.5 rounded-full font-medium border border-white/10 backdrop-blur-xs">
-                    Course: Composition II / Lit & Research
+                    Format: Online Asynchronous Delivery
                 </span>
             </div>
         </div>
@@ -76,26 +76,26 @@
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
                 <div class="flex items-center justify-between mb-3">
                     <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        Quick Lesson Presets
+                        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Asynchronous Lesson Presets
                     </h2>
-                    <span class="text-xs text-slate-400">Click to load standard ENGL 1302 scenarios</span>
+                    <span class="text-xs text-slate-400">Click to load online course scenarios</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <button type="button" onclick="loadPreset('synthesis')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 transition duration-150 group">
-                        <div class="font-semibold text-xs text-indigo-600 group-hover:text-indigo-700">Preset 1</div>
-                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Source Synthesis</div>
-                        <div class="text-xs text-slate-500 mt-1">Analyzing conflicting perspectives</div>
+                    <button type="button" onclick="loadPreset('synthesis')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 transition duration-150 group">
+                        <div class="font-semibold text-xs text-emerald-600 group-hover:text-emerald-700">Preset 1</div>
+                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Async Source Synthesis</div>
+                        <div class="text-xs text-slate-500 mt-1">Collab Matrix on Google Docs</div>
                     </button>
-                    <button type="button" onclick="loadPreset('rhetoric')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 transition duration-150 group">
-                        <div class="font-semibold text-xs text-indigo-600 group-hover:text-indigo-700">Preset 2</div>
-                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Rhetorical Fallacies</div>
-                        <div class="text-xs text-slate-500 mt-1">Evaluating media propaganda</div>
+                    <button type="button" onclick="loadPreset('rhetoric')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 transition duration-150 group">
+                        <div class="font-semibold text-xs text-emerald-600 group-hover:text-emerald-700">Preset 2</div>
+                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Digital Fallacy Hunt</div>
+                        <div class="text-xs text-slate-500 mt-1">Annotation & curation via Padlet</div>
                     </button>
-                    <button type="button" onclick="loadPreset('database')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/40 transition duration-150 group">
-                        <div class="font-semibold text-xs text-indigo-600 group-hover:text-indigo-700">Preset 3</div>
-                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Library Database Research</div>
-                        <div class="text-xs text-slate-500 mt-1">Keywords and query structure</div>
+                    <button type="button" onclick="loadPreset('database')" class="text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 transition duration-150 group">
+                        <div class="font-semibold text-xs text-emerald-600 group-hover:text-emerald-700">Preset 3</div>
+                        <div class="text-sm font-bold text-slate-800 line-clamp-1">Database Search Scavenger</div>
+                        <div class="text-xs text-slate-500 mt-1">LMS self-guided query strings</div>
                     </button>
                 </div>
             </div>
@@ -106,19 +106,19 @@
                 <!-- Section 1: Basic Information -->
                 <div>
                     <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
-                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">1</span>
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">1</span>
                         Basic Information & Taxonomy
                     </h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="lessonTitle" class="block text-sm font-medium text-slate-700 mb-1">Lesson Title</label>
-                            <input type="text" id="lessonTitle" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Synthesizing Conflicting Sources">
+                            <label for="lessonTitle" class="block text-sm font-medium text-slate-700 mb-1">Module / Lesson Title</label>
+                            <input type="text" id="lessonTitle" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="e.g., Synthesizing Conflicting Sources">
                         </div>
                         
                         <div>
                             <label for="bloomLevel" class="block text-sm font-medium text-slate-700 mb-1">Bloom's Taxonomy Level</label>
-                            <select id="bloomLevel" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm bg-white">
+                            <select id="bloomLevel" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm bg-white">
                                 <option value="Remembering">Remembering (Recognizing, recalling)</option>
                                 <option value="Understanding">Understanding (Explaining, summarizing)</option>
                                 <option value="Applying" selected>Applying (Using information in new situations)</option>
@@ -130,7 +130,7 @@
 
                         <div class="md:col-span-2">
                             <label for="audience" class="block text-sm font-medium text-slate-700 mb-1">Target Audience</label>
-                            <input type="text" id="audience" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., First-generation and diverse community college freshmen" value="Community college students in ENGL 1302 (Composition II)">
+                            <input type="text" id="audience" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="e.g., Asynchronous, highly diverse community college freshmen" value="Asynchronous, self-directed community college students in ENGL 1302 (Composition II)">
                         </div>
                     </div>
                 </div>
@@ -138,59 +138,59 @@
                 <!-- Section 2: Core Pedagogy -->
                 <div>
                     <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
-                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">2</span>
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">2</span>
                         Core Pedagogy & Scope
                     </h3>
                     
                     <div class="space-y-4">
                         <div>
                             <label for="objectives" class="block text-sm font-medium text-slate-700 mb-1">Learning Objectives (SWBAT)</label>
-                            <textarea id="objectives" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Define clear, measurable goals starting with action verbs..."></textarea>
+                            <textarea id="objectives" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="Define clear, measurable goals starting with action verbs..."></textarea>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="topics" class="block text-sm font-medium text-slate-700 mb-1">Topics Covered (List)</label>
-                                <textarea id="topics" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Credibility, Synthesis matrix, Academic integrity, Signal phrases"></textarea>
+                                <textarea id="topics" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="e.g., Credibility, Synthesis matrix, Academic integrity, Signal phrases"></textarea>
                             </div>
 
                             <div>
                                 <label for="keyTerms" class="block text-sm font-medium text-slate-700 mb-1">Key Terms & Vocabulary</label>
-                                <textarea id="keyTerms" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Synthesis, Attribution, Triangulation, Counterargument"></textarea>
+                                <textarea id="keyTerms" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="e.g., Synthesis, Attribution, Triangulation, Counterargument"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Section 3: Engagement Elements -->
+                <!-- Section 3: Asynchronous Engagement Elements -->
                 <div>
                     <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
-                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">3</span>
-                        Engagement & Practice
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">3</span>
+                        Asynchronous Engagement & Practice
                     </h3>
                     
                     <div class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="interactiveActivities" class="block text-sm font-medium text-slate-700 mb-1">Interactive Learning Activities</label>
-                                <textarea id="interactiveActivities" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Active learning tasks (e.g., Jigsaw reading, Think-Pair-Share)"></textarea>
+                                <label for="interactiveActivities" class="block text-sm font-medium text-slate-700 mb-1">Asynchronous Interactive Activities</label>
+                                <textarea id="interactiveActivities" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="LMS interactive work (e.g., Post-First discussion boards, VoiceThread comments, shared Padlets)"></textarea>
                             </div>
 
                             <div>
-                                <label for="teamProjects" class="block text-sm font-medium text-slate-700 mb-1">Collaborative/Team Projects</label>
-                                <textarea id="teamProjects" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Group activities or peer-review workshops..."></textarea>
+                                <label for="teamProjects" class="block text-sm font-medium text-slate-700 mb-1">Asynchronous Team Projects</label>
+                                <textarea id="teamProjects" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="Collaborative tasks (e.g., Shared Google Doc matrix writing, Peer-review pairings in Canvas groups)"></textarea>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="caseStudies" class="block text-sm font-medium text-slate-700 mb-1">Case Studies / Scenarios</label>
-                                <textarea id="caseStudies" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Analyze real scenarios or text critiques..."></textarea>
+                                <label for="caseStudies" class="block text-sm font-medium text-slate-700 mb-1">Online Case Studies / Scenarios</label>
+                                <textarea id="caseStudies" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="Asynchronous review of sample papers, logic checklists, or specific peer writing issues..."></textarea>
                             </div>
 
                             <div>
-                                <label for="labs" class="block text-sm font-medium text-slate-700 mb-1">In-class Labs / Hands-on Writing Workshops</label>
-                                <textarea id="labs" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Drafting database queries, live paraphrasing labs..."></textarea>
+                                <label for="labs" class="block text-sm font-medium text-slate-700 mb-1">Digital Labs / Self-Guided Writing Workshops</label>
+                                <textarea id="labs" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="Online library modules, software-guided citation checkers, or video-guided draft revisions..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -199,32 +199,32 @@
                 <!-- Section 4: Pedagogical Context & Accessibility -->
                 <div>
                     <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2 mb-4 flex items-center gap-2">
-                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">4</span>
-                        Context, Analogies & ADA Compliance
+                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">4</span>
+                        Digital Context, Analogies & ADA/UDL Compliance
                     </h3>
                     
                     <div class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="analogies" class="block text-sm font-medium text-slate-700 mb-1">Analogies & Conceptual Metaphors</label>
-                                <textarea id="analogies" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Comparing source synthesis to hosting a dinner party..."></textarea>
+                                <label for="analogies" class="block text-sm font-medium text-slate-700 mb-1">Analogies & Metaphors (For Video / LMS Text)</label>
+                                <textarea id="analogies" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="e.g., Comparing source synthesis to online forums or subreddits..."></textarea>
                             </div>
 
                             <div>
-                                <label for="realWorld" class="block text-sm font-medium text-slate-700 mb-1">Real-World Connections & Application</label>
-                                <textarea id="realWorld" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Evaluating reviews before buying a car or picking a restaurant..."></textarea>
+                                <label for="realWorld" class="block text-sm font-medium text-slate-700 mb-1">Online/Real-World Connections</label>
+                                <textarea id="realWorld" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="e.g., How algorithm recommendations synthesize your interest profile..."></textarea>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="assessments" class="block text-sm font-medium text-slate-700 mb-1">Assessments (Formative & Summative)</label>
-                                <textarea id="assessments" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="Formative (e.g., exit ticket, polling) and Summative (e.g., research proposal draft)..."></textarea>
+                                <label for="assessments" class="block text-sm font-medium text-slate-700 mb-1">Assessments (LMS Quizzes, Tasks, Submissions)</label>
+                                <textarea id="assessments" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="LMS-based formative checks (auto-graded quizzes, discussion posts) & summative submissions..."></textarea>
                             </div>
 
                             <div>
-                                <label for="adaCompliance" class="block text-sm font-medium text-slate-700 mb-1">ADA Compliance & Universal Design (UDL)</label>
-                                <textarea id="adaCompliance" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm" placeholder="e.g., Providing alt text, transcripts, multi-modal formats, high-contrast slides..."></textarea>
+                                <label for="adaCompliance" class="block text-sm font-medium text-slate-700 mb-1">Asynchronous Accessibility (ADA/UDL)</label>
+                                <textarea id="adaCompliance" rows="3" class="w-full px-3.5 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition text-sm" placeholder="e.g., Mandatory video transcripts/captions, keyboard navigable third-party tools, alt text for all diagrams..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -237,16 +237,16 @@
         <section class="lg:col-span-5 flex flex-col gap-6">
             
             <!-- Sticky Preview Card -->
-            <div class="bg-white rounded-xl shadow-md border border-indigo-100 p-6 flex flex-col gap-4 lg:sticky lg:top-6">
+            <div class="bg-white rounded-xl shadow-md border border-emerald-100 p-6 flex flex-col gap-4 lg:sticky lg:top-6">
                 
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-lg font-bold text-brand-800">Generated Prompt</h2>
-                        <p class="text-xs text-slate-500">Updates live as you configure the parameters on the left</p>
+                        <h2 class="text-lg font-bold text-brand-500">Asynchronous Prompt</h2>
+                        <p class="text-xs text-slate-500">Dynamically compiled on-the-fly</p>
                     </div>
                     
                     <!-- Copy Button -->
-                    <button type="button" onclick="copyPromptText()" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-4 py-2 rounded-lg transition shadow-xs">
+                    <button type="button" onclick="copyPromptText()" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-4 py-2 rounded-lg transition shadow-xs">
                         <svg id="copyIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-5 13h6m-6-4h6m-6-4h3"></path>
                         </svg>
@@ -256,7 +256,7 @@
 
                 <!-- Live Toast Banner -->
                 <div id="toast" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-lg text-xs font-semibold flex items-center justify-between animate-pulse">
-                    <span>Prompt copied to your clipboard! Ready to paste into ChatGPT, Claude, etc.</span>
+                    <span>Prompt copied! Paste it directly into your AI workspace.</span>
                     <button onclick="document.getElementById('toast').classList.add('hidden')" class="text-emerald-500 hover:text-emerald-700 font-bold">&times;</button>
                 </div>
 
@@ -266,12 +266,12 @@
                 </div>
 
                 <!-- Instruction Note -->
-                <div class="bg-indigo-50 rounded-lg p-3.5 border border-indigo-100 flex items-start gap-3">
-                    <svg class="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <div class="bg-emerald-50 rounded-lg p-3.5 border border-emerald-100 flex items-start gap-3">
+                    <svg class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <div class="text-xs text-indigo-900 leading-normal">
-                        <strong class="font-bold">How to use:</strong> Copy this prompt and paste it into any powerful AI assistant (e.g., Gemini, Claude, ChatGPT, Llama). The AI will process these structured pedagogic guidelines to output a full, comprehensive, ready-to-use lesson plan for your college course.
+                    <div class="text-xs text-emerald-900 leading-normal">
+                        <strong class="font-bold">E-learning Ready:</strong> This generated prompt specifically instructs the AI model to output lessons structured as self-contained **weekly modules** complete with LMS layouts, asynchronous discussion guidelines, and accessible, caption-ready micro-lecture scripts.
                     </div>
                 </div>
 
@@ -284,7 +284,7 @@
     <footer class="bg-slate-800 text-slate-400 py-6 px-4 mt-auto border-t border-slate-700 text-center text-xs">
         <div class="max-w-7xl mx-auto space-y-1">
             <p>&copy; 2026 Community College English Instructional Toolkit.</p>
-            <p>Empowering educators to leverage structured generative AI frameworks effectively.</p>
+            <p>Optimized for Asynchronous, Virtual Instruction Design paradigms.</p>
         </div>
     </footer>
 
@@ -293,52 +293,52 @@
         // Preset configurations
         const presets = {
             synthesis: {
-                title: "The Art of Synthesis: Constructing the Conversation Matrix",
+                title: "Asynchronous Source Synthesis: Hosting the Scholar's Discussion",
                 bloom: "Analyzing",
-                audience: "Community college sophomore/freshman students in ENGL 1302, working toward their major research paper. Highly diverse academic backgrounds.",
-                objectives: "1. Define the difference between simple summarization and deep rhetorical synthesis.\n2. Construct a 'synthesis matrix' comparing three conflicting viewpoints on a socio-cultural topic.\n3. Draft standard signal phrases linking divergent arguments fluidly within a cohesive paragraph.",
-                topics: "- Summary vs. Synthesis\n- Designing a synthesis matrix table\n- Using active linking verbs (concedes, counters, corroborates, emphasizes)\n- Creating a unified organizational structure",
-                keyTerms: "Synthesis, Synthesis Matrix, Interlocutor, Conversation Metaphor, Corroboration, Counterargument",
-                interactiveActivities: "Think-Pair-Share: Give pairs of students three short, conflicting 2-sentence opinions on artificial intelligence. Ask them to write a single synthesized sentence combining all three without using 'and' as the primary joiner.",
-                teamProjects: "Synthesis Speed-Dating: Assign groups representing different scholars/authors. They must visit other groups' tables, hold structured debates, and draft an inline synthesis grid capturing the outcome of the debate.",
-                caseStudies: "Analyze a poorly written essay excerpt that relies on 'patchwriting' (simply listing authors sequentially without putting them in conversation) versus a highly integrated paragraph to highlight the contrast.",
-                labs: "Synthesis Matrix Lab: Students open shared digital spreadsheets, copy in their own research source summaries, and map out mutual key themes under instructor guidance.",
-                analogies: "The Dinner Party Metaphor (Kenneth Burke's parlor): Imagine arriving late to a busy dinner party. Multiple guests are arguing. You can't just shout out your opinion immediately; you must listen first to understand who is agreeing with whom, then make your contribution relevant to their ongoing conversation.",
-                realWorld: "Selecting a restaurant using online reviews (Yelp/Google). Customers don't look at just one review; they synthesize commonalities (e.g., 'Reviews agree the food is great, but wait times are long').",
-                assessments: "Formative: Exit ticket requiring students to write a synthesis sentence incorporating two opposing views using 'although'.\nSummative: Draft of a 2-page literature review synthesizing three sources from their preliminary bibliography.",
-                adaCompliance: "Provide printable and screen-reader friendly PDF versions of the synthesis matrix template, use highly descriptive alt text for diagrams explaining synthesis, and caption all micro-lecture introduction videos."
+                audience: "Asynchronous community college ENGL 1302 students. Many are managing jobs and family commitments, requiring modular, self-paced, yet collaborative learning models.",
+                objectives: "1. Distinguish between simple summaries of individual sources and synthesized conversations.\n2. Construct an interactive, asynchronous 'synthesis matrix' using a shared Google Sheets workspace with peers.\n3. Formulate signal phrases linking divergent researcher positions within a discussion board post.",
+                topics: "- Summary versus synthesizing perspectives\n- Constructing and analyzing a synthesis matrix table\n- Integrating and linking diverse authors (asynchronous dialogue metaphors)\n- Academic citation & transition protocols",
+                keyTerms: "Synthesis, Synthesis Matrix, Asynchronous Dialogue, Academic Attribution, Signal Phrases, Counterargument",
+                interactiveActivities: "Post-First Canvas Discussion: Students read 3 extremely brief, conflicting perspectives on remote labor. They are required to draft a 1-sentence synthesis incorporating all 3 viewpoints using standard academic markers before unlocking peer answers.",
+                teamProjects: "Cloud Workspace Matrix: Students are assigned to Canvas small-groups. Working in an asynchronous shared Google Doc, each student contributes a summarizing row of their own sources, collaborating to cross-tag central overlapping themes across all entries.",
+                caseStudies: "Interactive LMS Canvas Page: Read two short model essays side-by-side. One relies on 'source dumping' (listing citations back-to-back with zero synthesis), while the other utilizes dynamic linking structures. Students participate in a self-guided review comparison quiz.",
+                labs: "Google Docs Drafting Lab: An asynchronous laboratory task where students use a structured guide to craft a single, highly integrated body paragraph using their shared matrices, submitting the doc link for review and digital markups.",
+                analogies: "The Subreddit Dialogue Metaphor: Synthesizing sources asynchronously online is like dropping comments on a focused Reddit thread. You aren't reciting your credentials in a vacuum; you must cite, address, and reference what users (scholars) posted hours or days before you, linking them together.",
+                realWorld: "Interrogating product reviews (Amazon, Yelp, Reddit) where consumer feedback must be synthesized to build a smart, consensus-driven final purchasing decision.",
+                assessments: "Formative: Canvas Discussion Board prompt requiring a synthesis post and 2 substantial, evaluative replies to classmates.\nSummative: Submit an initial Literature Review Synthesis Grid containing 4 verified scholarly source intersections.",
+                adaCompliance: "Ensure shared Google Doc folders utilize clean heading typography compatible with screen readers. Caption all instructor walkthrough screen recordings. Supply screen-reader compliant matrix tables."
             },
             rhetoric: {
-                title: "Deconstructing Media Logic: Rhetorical Fallacies in the Public Square",
+                title: "The Digital Fallacy Hunt: Critiquing Misinformation Asynchronously",
                 bloom: "Evaluating",
-                audience: "Diverse ENGL 1302 community college class; many are non-traditional, adult learners needing analytical media literacy skills.",
-                objectives: "1. Distinguish between emotional appeal and logical argumentation.\n2. Identify and describe common fallacies (Ad Hominem, Strawman, False Dilemma, Slippery Slope) within contemporary news and advertising.\n3. Formulate an evidence-based critique explaining how a logical fallacy undermines an author's rhetorical position.",
-                topics: "- The Rhetorical Triangle (Ethos, Pathos, Logos)\n- Fallacies of relevance, distraction, and presumption\n- Impact of fallacious logic on modern media polarization\n- Strategies to counter fallacious reasoning in research writing",
-                keyTerms: "Rhetorical Fallacy, Strawman, False Dilemma, Ad Hominem, Slippery Slope, Cognitive Bias",
-                interactiveActivities: "Fallacy Hunt: In small groups, analyze pre-selected print advertisements or short video political speeches on a digital padlet, labeling instances of logical fallacies they spot in real-time.",
-                teamProjects: "The Propaganda Campaign: In teams of 3-4, students intentionally design a short, satirical advertisement/pitch utilizing at least three different fallacies, then swap with another team who must identify and 'expose' the faulty logic.",
-                caseStudies: "Analyzing historic speeches or public service announcements (e.g., anti-drug campaigns or political campaign ads) to trace how fear-mongering and slippery slope arguments are constructed.",
-                labs: "Media Lab: Working in the library lab space, students evaluate a popular opinion article on a topic of their choice and flag logical fallacies using dynamic digital annotators (like Hypothesis).",
-                analogies: "The 'House of Cards' Analogy: Building an argument with fallacies is like constructing a house of cards. It looks structured and impressive from a distance, but the moment you test the logical integrity of a single piece, the entire structure collapses.",
-                realWorld: "Spotting manipulative clickbait online, click-through clickbait headlines, or analyzing car sales strategies that try to create artificial scarcity to pressure buyers.",
-                assessments: "Formative: A digital quiz matching examples to their respective rhetorical fallacies.\nSummative: A 3-page critique of an editorial's rhetorical weaknesses, with specific focus on identifying logical fallacies.",
-                adaCompliance: "Ensure all selected video clips have synchronized closed captions. Provide full transcripts of speeches. Ensure the digital Padlet board is fully navigable using standard keyboard commands."
+                audience: "Asynchronous ENGL 1302 students, many working non-traditional hours, requiring flexible, high-impact digital tools for media literacy.",
+                objectives: "1. Distinguish real emotional appeal from fallacious rhetorical maneuvers.\n2. Discover, categorize, and document 3 unique logical fallacies within commercial ads, social media, or opinion columns.\n3. Compose an analytical, text-based rebuttal explaining why a chosen fallacy invalidates the creator's argument.",
+                topics: "- Critical Rhetorical Appeals (Ethos, Pathos, Logos)\n- Structural Fallacies of Distraction, Relevance, and Presumption\n- Navigating digital media bias asynchronously\n- Peer-evaluating media messaging",
+                keyTerms: "Logical Fallacy, Strawman Argument, Ad Hominem, False Dilemma, Slippery Slope, Digital Confirmation Bias",
+                interactiveActivities: "Padlet Wall Fallacy Curation: Students find real-world examples of fallacies (memes, tweets, news headlines) during the week and upload them to a shared Padlet wall with a brief asynchronous audio or text analysis.",
+                teamProjects: "Deception Co-op Slides: Within Canvas Groups, students collaborate on a shared Google Slides presentation. Each member contributes one slide demonstrating a specialized fallacy, detailing how they would 'fix' the rhetoric.",
+                caseStudies: "Asynchronous Video Analysis: Watch a captioned 3-minute debate or campaign commercial with instructional pause-points using Edpuzzle, prompting students with checks to tag specific fallacious arguments.",
+                labs: "Digital Annotation Lab: Using Hypothes.is or Canvas Annotation, students read a designated contemporary editorial and asynchronously annotate where they spot false equivalencies or ad hominem attacks.",
+                analogies: "The 'Clickbait' Metaphor: A logical fallacy is like clickbait. It looks highly convincing and grabs your attention immediately, but once you click on it, you realize there is no reliable structure supporting it.",
+                realWorld: "Evaluating advertisements on Instagram/TikTok or sponsored news articles claiming impossible, unscientific health results.",
+                assessments: "Formative: Successful annotation of logical fallacies on a shared digital reading via Hypothes.is.\nSummative: An asynchronous video or written critique comparing two competing media articles' logical validity.",
+                adaCompliance: "All video clips in Edpuzzle must have synchronized closed captions. Padlet boards must be navigated and readable via tab key actions. Provide text-only transcripts of all analyzed video speeches."
             },
             database: {
-                title: "Beyond Google: Precision Keyword Strategies for Academic Research",
+                title: "Digital Information Architecture: Advanced Academic Query Construction",
                 bloom: "Applying",
-                audience: "Community college students starting college-level research for the first time. Need scaffolding to move past basic search boxes.",
-                objectives: "1. Translate a complex research question into actionable keyword strings.\n2. Execute advanced searches utilizing Boolean Operators (AND, OR, NOT) and truncation.\n3. Evaluate library database search results for relevance, peer-reviewed status, and academic rigor.",
-                topics: "- The limits of consumer search engines (Google vs. Academic Databases)\n- Brainstorming synonyms, broader terms, and narrower terms\n- Constructing complex Boolean search query strings\n- Navigating database filters (peer-review, date range, geography)",
-                keyTerms: "Boolean Operators, Truncation (*), Wildcards, Query String, Peer-Review, Scholarly Database",
-                interactiveActivities: "Keyword Scavenger Hunt: Students are given a single broad topic (e.g., climate change and urban design) and have 10 minutes to find the most specific peer-reviewed article they can using targeted boolean search strings.",
-                teamProjects: "Peer Query Workshop: Working in pairs, students review each other's research questions, exchange keyword suggestions, and co-develop query strings that yielded the most relevant search result sets.",
-                caseStudies: "Comparing a basic Google search query return vs. a targeted query in EBSCO Host or JSTOR on the exact same topic, charting the differences in source types, reliability, and academic utility.",
-                labs: "Hands-on Library Database Lab: Active searching session using real library terminals. Students must successfully locate and download at least two peer-reviewed academic journal articles that align with their working thesis.",
-                analogies: "The Grocery Store Layout: Navigating a massive library database is like finding a specific item in a mega-grocery store. You don't wander randomly; you look at the category signs (Subject filters), use logical paths, and search specifically by aisle groupings (Boolean terms).",
-                realWorld: "Using filters and keywords on Amazon, streaming platforms (Netflix/Spotify), or real estate search engines to find specific products with nested criteria.",
-                assessments: "Formative: A screenshot submission of a library database query string that successfully yields a targeted set of peer-reviewed articles.\nSummative: A formal annotated bibliography entry detailing the exact search string used to discover the source.",
-                adaCompliance: "Format database instruction sheets for easy zoom and high-contrast styling. Ensure screen-reader capability on all database search tutorials. Provide text alternative diagrams for Boolean Venn Diagrams."
+                audience: "Online-only students who need self-guided pathways to navigate the community college library database without physical, in-person assistance.",
+                objectives: "1. Translate a broad research concept into advanced keywords with synonyms.\n2. Design and compile complex database search queries utilizing Boolean modifiers and truncation operators.\n3. Critically analyze scholarly search results to filter for peer-reviewed, high-relevance academic resources.",
+                topics: "- Academic databases vs. Commercial search engines\n- Keyword mapping, nested synonym lists, and term truncation\n- Constructing logical Boolean query chains (AND, OR, NOT)\n- Navigating and using advanced search database indexing features",
+                keyTerms: "Boolean Logic, Truncation (*), Search String, Scholarly Journal Database, Peer-Reviewed, Information Literacy",
+                interactiveActivities: "Interactive Canvas Scavenger Hunt: Students follow an LMS module walkthrough and must submit the exact database search query string that yields a pre-selected specific scholarly journal article.",
+                teamProjects: "Peer Query Optimization Board: On a designated discussion board, student A posts their working research question. Students B and C must post two distinct search strings that optimize student A's search, documenting how many results were found.",
+                caseStudies: "Self-Guided Interactive Presentation: Comparing search queries in Google, Google Scholar, and EBSCO Host, showing how search engines prioritize ad dollars while library databases prioritize structured classification.",
+                labs: "Digital Database Lab Worksheet: A downloadable PDF template where students map their research topics, document 3 attempted query strings, and log the metadata of 2 resulting peer-reviewed sources.",
+                analogies: "The Streaming Filter Metaphor: Constructing a boolean search string is exactly like setting advanced search filters on Netflix or Spotify. You don't just type 'movie'; you search by genre (AND) exclusion of specific subgenres (NOT) or actors (OR).",
+                realWorld: "Constructing filtered searches on sites like LinkedIn, Amazon, or home-rental databases to locate precise services, items, or listings.",
+                assessments: "Formative: Submission of search-string logs showing a progression from broad to narrow results.\nSummative: Submission of the first draft of an Annotated Bibliography utilizing 3 distinct peer-reviewed scholarly sources.",
+                adaCompliance: "All library database tutorial videos must have clear transcripts. Ensure all printable worksheets are exported in high-contrast PDF format with descriptive tag structuring."
             }
         };
 
@@ -370,7 +370,7 @@
             updatePrompt();
         }
 
-        // Dynamically update prompt text output
+        // Dynamically update prompt text output for Asynchronous Course delivery
         function updatePrompt() {
             const title = document.getElementById('lessonTitle').value || "[Lesson Title]";
             const bloom = document.getElementById('bloomLevel').value;
@@ -387,12 +387,12 @@
             const assessments = document.getElementById('assessments').value || "[Assessments not yet specified]";
             const adaCompliance = document.getElementById('adaCompliance').value || "[ADA guidelines not yet specified]";
 
-            const promptText = `Act as an expert instructional designer, curriculum specialist, and veteran community college professor teaching ENGL 1302 (Composition II / Literature & Research). 
+            const promptText = `Act as an expert digital instructional designer, LMS specialist, and veteran community college professor specializing in online asynchronous delivery for ENGL 1302 (Composition II / Literature & Research).
 
-Develop a comprehensive, highly engaging, and pedagogically sound lesson plan designed to support the diverse needs of community college students based on the following specific parameters:
+Create a fully detailed, comprehensive asynchronous weekly module. Design all sections to support the independent, self-directed learning typical of online community college students.
 
-### 1. LESSON OVERVIEW
-- **Lesson Title:** ${title}
+### 1. MODULE OVERVIEW
+- **Module / Lesson Title:** ${title}
 - **Target Audience:** ${audience}
 - **Bloom's Taxonomy Target Level:** ${bloom}
 
@@ -406,43 +406,45 @@ ${topics.split('\n').map(line => '  ' + line).join('\n')}
 - **Key Terms & Vocabulary:**
 ${keyTerms.split('\n').map(line => '  ' + line).join('\n')}
 
-### 3. ACTIVE ENGAGEMENT & REINFORCEMENT
-- **Interactive Class Activities:**
+### 3. ASYNCHRONOUS ENGAGEMENT & DIGITAL PRACTICE
+- **Asynchronous Interactive Activities (Discussion, Padlet, etc.):**
 ${interactiveActivities.split('\n').map(line => '  ' + line).join('\n')}
 
-- **Collaborative/Team Projects:**
+- **Asynchronous Team/Collaborative Projects (Shared Docs, Wiki, etc.):**
 ${teamProjects.split('\n').map(line => '  ' + line).join('\n')}
 
-- **Case Studies / Analytical Scenarios:**
+- **Online Case Studies / Analytical Scenarios:**
 ${caseStudies.split('\n').map(line => '  ' + line).join('\n')}
 
-- **Hands-on Workshop/Writing Lab:**
+- **Digital Writing Lab / Guided Workshop:**
 ${labs.split('\n').map(line => '  ' + line).join('\n')}
 
-### 4. COGNITIVE ANCHORS
-- **Conceptual Analogies / Metaphors:**
+### 4. COGNITIVE ANCHORS (ONLINE)
+- **Conceptual Analogies / Metaphors (For Video scripts or LMS Text):**
 ${analogies.split('\n').map(line => '  ' + line).join('\n')}
 
-- **Real-World Connections:**
+- **Online / Real-World Connections:**
 ${realWorld.split('\n').map(line => '  ' + line).join('\n')}
 
 ### 5. ASSESSMENTS & ACCESSIBILITY
-- **Formative & Summative Assessments:**
+- **Formative & Summative LMS Assessments:**
 ${assessments.split('\n').map(line => '  ' + line).join('\n')}
 
-- **ADA Compliance & Universal Design (UDL) Features:**
+- **Asynchronous ADA Compliance & Universal Design (UDL) Features:**
 ${adaCompliance.split('\n').map(line => '  ' + line).join('\n')}
 
 ---
 
 ### INSTRUCTIONS FOR OUTPUT FORMAT:
-Using the criteria above, produce a fully fleshed-out lesson plan. Structure your response with the following sections:
-1. **Lesson Introduction & Hook (10-15 mins):** Use the analogies or real-world metaphors to frame the day's relevance.
-2. **Direct Instruction Outline (20-30 mins):** Provide step-by-step lecture notes, modeling sequences, and exact definitions for Key Terms.
-3. **Active Student Practice (30-40 mins):** Detailing how to facilitate the Interactive Class Activity, the Workshop/Lab, or Team projects.
-4. **Scaffolded Handout Script:** Write out the actual text/content that I should print on a worksheet or share in Canvas (LMS) for the students.
-5. **Assessment Delivery Guide:** Include instructions on how to grade or debrief the formative exit-tickets/assessments.
-6. **ADA Adaptations:** Explicitly outline instructions for alternative delivery paths (e.g. for visually/hearing impaired or asynchronous online students) ensuring absolute compliance.`;
+Using the criteria above, produce a fully fleshed-out asynchronous week-long module. Structure your response with the following sections:
+
+1. **LMS Homepage/Introduction Copy:** A warm, welcoming text introduction for the Canvas homepage of this module. Use the cognitive analogies and real-world connection elements to hook online-only students.
+2. **Micro-Lecture Video Outline & Scripts:** Detailed video script outlines (e.g., 5-7 minute lectures) that introduce the key topics and define the Key Terms clearly.
+3. **Weekly Task Checklist:** A clear, chronological step-by-step table/checklist for students, scheduling tasks to guide their work across the asynchronous week.
+4. **Asynchronous Discussion Board Prompt:** The exact instruction copy for the interactive Canvas/LMS forum (including "Post-First" rules and detailed instructions for peer replies).
+5. **Self-Guided Digital Lab / Worksheet Script:** The full instructional content and questions for the asynchronous assignment doc they will download, fill out, and submit.
+6. **LMS Assessment Blueprint:** Outline the configurations of any weekly auto-graded quizzes or rubrics for written summative submissions.
+7. **Asynchronous Accessibility Adaptations:** Detailed strategies for providing equivalent asynchronous experiences (e.g., text alternatives, video transcripts, keyboard-only options for third-party platforms like Padlet).`;
 
             document.getElementById('promptOutput').textContent = promptText;
         }
