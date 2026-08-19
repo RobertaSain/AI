@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSI Essay Odyssey: Crypt of the Quill-Slayer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        spooky: {
+                            void: '#070a13',      /* Absolute Dark */
+                            abyss: '#0e1326',     /* Dark Blue-Gray */
+                            crypt: '#1b2342',     /* Medium Dungeon Blue */
+                            necro: '#c084fc',     /* Glowing Poison Purple (Lightened for better contrast) */
+                            ghost: '#4ade80',     /* Ghastly Green (Lightened for contrast) */
+                            ectoplasm: '#22d3ee', /* Eerie Cyan (Lightened for contrast) */
+                            ember: '#f97316',     /* Cursed Orange */
+                            gold: '#fbbf24',      /* Ancient Gold */
+                            blood: '#f87171',     /* Blood Red (Lightened for contrast) */
+                            parchment: '#fef3c7'  /* Aged Scroll Yellow */
+                        }
+                    },
+                    boxShadow: {
+                        'retro-sm': '3px 3px 0px 0px #070a13',
+                        'retro': '5px 5px 0px 0px #070a13',
+                        'retro-lg': '9px 9px 0px 0px #070a13',
+                        'retro-xl': '14px 14px 0px 0px #070a13'
+                    },
+                    fontFamily: {
+                        sans: ['"Comic Sans MS"', 'system-ui', 'sans-serif'],
+                        serif: ['Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Floating animations */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float-slow 4s infinite ease-in-out;
+        }
+        /* Heavy Comic/RPG Border style */
+        .comic-border {
+            border: 4px solid #070a13;
+        }
+        .comic-border-2 {
+            border: 2px solid #070a13;
+        }
+    </style>
+</head>
+<body class="bg-spooky-void text-slate-100 min-h-screen flex flex-col font-sans selection:bg-spooky-necro selection:text-white antialiased">
+
+    <!-- Screen Reader Visually Hidden Live Announcer (ADA Compliance) -->
+    <div id="accessibleAnnouncer" class="sr-only" aria-live="polite">Quest initialized. Secure your college composition credits.</div>
+
+    <!-- Spooky HUD / Game Header -->
+    <header class="bg-spooky-abyss border-b-4 border-spooky-void sticky top-0 z-50 py-3 px-4 md:px-8 shadow-xl">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
+            
+            <!-- Logo / Ink-Knight Banner -->
+            <button class="flex items-center space-x-3.5 text-left focus:ring-4 focus:ring-spooky-necro focus:outline-none rounded-xl p-1" onclick="goToTab('quest')" aria-label="Crypt of the Quill-Slayer game. Back to active game screen.">
+                <div class="bg-spooky-necro comic-border p-2.5 rounded-xl shadow-retro-sm hover:rotate-2 transition-transform" aria-hidden="true">
+                    <svg class="w-8 h-8 text-spooky-void" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-black tracking-tight text-white uppercase flex items-center gap-2">
+                        CRYPT OF THE QUILL-SLAYER <span aria-hidden="true">💀</span>
+                    </h1>
+                    <p class="text-xs text-spooky-necro font-bold uppercase tracking-wider">
+                        TSI Essay Trials • Guided by <span class="text-spooky-gold font-black">Sir Sage Write</span>
+                    </p>
+                </div>
+            </button>
+
+            <!-- Mode Tabs (Quest / Archives) -->
+            <nav class="flex items-center gap-2" aria-label="Game Navigation">
+                <button id="btn-tab-quest" onclick="goToTab('quest')" class="bg-spooky-necro text-spooky-void font-black px-4 py-2 text-xs md:text-sm rounded-xl comic-border shadow-retro-sm hover:-translate-y-0.5 transition-transform focus:ring-4 focus:ring-white focus:outline-none">
+                    ⚔️ Run the Crypt
+                </button>
+                <button id="btn-tab-archives" onclick="goToTab('archives')" class="bg-spooky-abyss text-slate-300 hover:bg-spooky-necro hover:text-spooky-void font-black px-4 py-2 text-xs md:text-sm rounded-xl comic-border shadow-retro-sm hover:-translate-y-0.5 transition-transform focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                    📜 The Scholarly Tombs
+                </button>
+            </nav>
+
+            <!-- Spooky RPG Player Status Panel -->
+            <div id="hudStats" class="flex flex-wrap items-center gap-3 bg-spooky-void/90 p-3 rounded-2xl comic-border" aria-label="Hero Status Board">
+                <!-- Resolve (Health) -->
+                <div class="flex flex-col" aria-label="Rhetorical Resolve Health: 100 percent">
+                    <div class="flex items-center justify-between text-[10px] font-black tracking-widest text-spooky-blood">
+                        <span>RESOLVE (HP)</span>
+                        <span id="hpValue">100 / 100</span>
+                    </div>
+                    <div class="w-24 md:w-32 bg-slate-900 h-2.5 rounded-full border border-slate-700 overflow-hidden relative mt-1">
+                        <div id="hpBar" class="bg-gradient-to-r from-spooky-blood to-red-500 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="h-8 w-[2px] bg-slate-800 hidden md:block" aria-hidden="true"></div>
+
+                <!-- Quest Progress Bar -->
+                <div class="flex flex-col" aria-label="Crypt Progression">
+                    <div class="flex items-center justify-between text-[10px] font-black tracking-widest text-spooky-ectoplasm uppercase">
+                        <span>Progress</span>
+                    </div>
+                    <div class="w-24 md:w-32 bg-slate-900 h-2.5 rounded-full border border-slate-700 overflow-hidden relative mt-1">
+                        <div id="progressBar" class="bg-gradient-to-r from-spooky-ectoplasm to-spooky-necro h-full rounded-full transition-all duration-300" style="width: 10%;"></div>
+                    </div>
+                </div>
+
+                <div class="h-8 w-[2px] bg-slate-800 hidden md:block" aria-hidden="true"></div>
+
+                <!-- Essay Score Rating -->
+                <div class="flex flex-col" aria-label="TSI Score Potential">
+                    <span class="text-[10px] font-black tracking-widest text-spooky-gold uppercase">TSI Level Potential</span>
+                    <span id="scoreBadge" class="text-sm font-black text-spooky-ember">1 / 8 Points</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Crypt Arena -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+        
+        <!-- ==================== TAB: PLAY QUEST ==================== -->
+        <div id="tab-content-quest" class="space-y-6">
+            
+            <!-- Spooky Game Modals -->
+            <div id="gameModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-spooky-void/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+                <div class="bg-spooky-abyss comic-border rounded-2xl p-6 max-w-md w-full shadow-retro-xl animate-float text-center space-y-4">
+                    <div id="modalIcon" class="text-5xl" aria-hidden="true">👻</div>
+                    <h2 id="modalTitle" class="text-lg font-black uppercase text-white tracking-widest">Spectral Feedback</h2>
+                    <p id="modalDesc" class="text-sm text-slate-300 font-bold leading-relaxed"></p>
+                    <button id="modalCloseBtn" onclick="closeModal()" class="w-full bg-spooky-necro hover:bg-purple-700 text-spooky-void font-black py-2.5 rounded-xl comic-border shadow-retro-sm transition focus:ring-4 focus:ring-white focus:outline-none">
+                        CONTINUE EXPLORING 🗡️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stage 0: Entry Hall (Welcome Screen) -->
+            <section id="screen-welcome" class="bg-spooky-abyss rounded-3xl comic-border p-6 md:p-10 shadow-retro-lg space-y-8 relative overflow-hidden" aria-labelledby="heading-welcome">
+                
+                <!-- Atmospheric background mists -->
+                <div class="absolute -top-10 -right-10 bg-spooky-necro rounded-full w-44 h-44 opacity-10 blur-3xl" aria-hidden="true"></div>
+                <div class="absolute -bottom-10 -left-10 bg-spooky-ghost rounded-full w-44 h-44 opacity-10 blur-3xl" aria-hidden="true"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Sir Sage Write SVG (Grizzled Veteran Knight Scholar) -->
+                    <div class="lg:col-span-4 flex flex-col items-center">
+                        <div class="bg-spooky-crypt p-4 rounded-3xl comic-border shadow-retro relative animate-float max-w-[240px]">
+                            <!-- Grizzled Veteran Knight Scholar SVG -->
+                            <svg class="w-full h-auto text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vector illustration of Sir Sage Write, clad in steel plate armor with a purple wizard hood and academic spectacles.">
+                                <title>Sir Sage Write, the Ink-Knight Companion</title>
+                                <!-- Background glowing aura -->
+                                <circle cx="50" cy="50" r="42" fill="#a855f7" fill-opacity="0.15"/>
+                                <!-- Iron Plate Armor Chest -->
+                                <path d="M25 80 L75 80 L70 55 L30 55 Z" fill="#475569" stroke="#070a13" stroke-width="4" stroke-linejoin="round"/>
+                                <path d="M45 55 L50 80 L55 55" stroke="#070a13" stroke-width="3"/>
+                                <!-- Battle-torn Cloak -->
+                                <path d="M15 50 C20 80 10 95 10 95 L25 80" stroke="#7c3aed" stroke-width="5" fill="none"/>
+                                <path d="M85 50 C80 80 90 95 90 95 L75 80" stroke="#7c3aed" stroke-width="5" fill="none"/>
+                                <!-- Iron Helmet Base -->
+                                <rect x="32" y="28" width="36" height="32" rx="6" fill="#64748b" stroke="#070a13" stroke-width="4"/>
+                                <!-- Knight Visor plate -->
+                                <path d="M30 40 L70 40 L64 54 L36 54 Z" fill="#334155" stroke="#070a13" stroke-width="3"/>
+                                <!-- Spectacles Welded to Helmet Plate -->
+                                <circle cx="41" cy="46" r="8" stroke="#fbbf24" stroke-width="3" fill="none"/>
+                                <circle cx="59" cy="46" r="8" stroke="#fbbf24" stroke-width="3" fill="none"/>
+                                <line x1="49" y1="46" x2="51" y2="46" stroke="#fbbf24" stroke-width="3"/>
+                                <!-- Glowing Visor Eyes (Under Glasses) -->
+                                <circle cx="41" cy="46" r="2.5" fill="#22c55e" class="animate-pulse"/>
+                                <circle cx="59" cy="46" r="2.5" fill="#22c55e" class="animate-pulse"/>
+                                <!-- Battle scars across the helmet plate -->
+                                <path d="M36 32 L40 38" stroke="#ef4444" stroke-width="2"/>
+                                <path d="M62 30 L65 36" stroke="#ef4444" stroke-width="2"/>
+                                <!-- Feathered Scholar's Ink-Quill helmet plume -->
+                                <path d="M50 28 C50 10 65 5 70 8 C60 18 53 22 50 28" fill="#d8b4fe" stroke="#070a13" stroke-width="3"/>
+                            </svg>
+                            <!-- Word Bubble Badge -->
+                            <div class="absolute -top-3 -right-6 bg-spooky-blood text-spooky-void text-[10px] font-black px-2.5 py-1 rounded-full comic-border rotate-12 uppercase tracking-wide" aria-hidden="true">
+                                BATTLE-TESTED 💀
+                            </div>
+                        </div>
+                        <p class="text-sm font-black text-white mt-4 text-center tracking-wider">SIR SAGE WRITE</p>
+                        <p class="text-[10px] text-spooky-necro text-center uppercase tracking-widest font-extrabold">Veteran Knight of the College Composition</p>
+                    </div>
+
+                    <!-- Intro Story & Setup -->
+                    <div class="lg:col-span-8 space-y-4">
+                        <span class="bg-spooky-blood text-spooky-void text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full comic-border shadow-retro-sm inline-block">
+                            The Gates of Remedial Torment Await!
+                        </span>
+                        <h2 id="heading-welcome" tabindex="-1" class="text-3xl md:text-4xl font-black text-white uppercase leading-tight font-serif focus:outline-none">
+                            TSIA2 Persuasive Writing Dungeon Crawl!
+                        </h2>
+                        <p class="text-sm md:text-base leading-relaxed text-slate-300 font-semibold">
+                            Halt, young scribe! Before you are granted access to credit-bearing college classes, you must challenge the terrifying <strong class="text-spooky-gold">TSIA2 Essay Trial</strong>. Graders inspect your focus, support, and syntax. You must survive a persuasive essay of 300 to 600 words, securing at least <strong class="text-spooky-ghost">5 or 6 out of 8 points</strong>.
+                        </p>
+                        <p class="text-xs md:text-sm text-slate-400 leading-normal font-medium">
+                            Fail, and you shall be trapped forever in the endless purgatory of non-credit remedial workshops! Clad yourself in my armor, sharpen your thesis blade, and prepare to banish the grammar wraiths lurking in the mist.
+                        </p>
+
+                        <!-- Equipment Inventory HUD -->
+                        <div class="bg-spooky-void p-4 rounded-xl border-2 border-spooky-crypt space-y-2" aria-label="Knightly Inventory Checklist">
+                            <h3 class="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                                🎒 YOUR ACTIVE KNIGHTLY INVENTORY:
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-bold text-slate-300">
+                                <div class="bg-spooky-abyss p-2 rounded border border-slate-800 flex items-center gap-2">
+                                    <span>⚔️ Blade:</span>
+                                    <span id="inv-blade" class="text-spooky-blood font-bold">None (Locked)</span>
+                                </div>
+                                <div class="bg-spooky-abyss p-2 rounded border border-slate-800 flex items-center gap-2">
+                                    <span>🛡️ Shield:</span>
+                                    <span id="inv-shield" class="text-spooky-blood font-bold">None (Locked)</span>
+                                </div>
+                                <div class="bg-spooky-abyss p-2 rounded border border-slate-800 flex items-center gap-2">
+                                    <span>🥾 Greaves:</span>
+                                    <span id="inv-greaves" class="text-slate-300">Unstructured</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button onclick="startQuest()" class="inline-flex items-center gap-2.5 bg-spooky-necro hover:bg-purple-700 text-spooky-void font-black text-sm px-7 py-4 rounded-2xl comic-border shadow-retro hover:-translate-y-0.5 transition-transform uppercase tracking-wider focus:ring-4 focus:ring-white focus:outline-none">
+                                <span>ENTER THE WRITING CRYPT</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- STAGE 1: Decoding the Prompt -->
+            <section id="screen-stage1" class="hidden bg-spooky-abyss rounded-3xl comic-border p-6 md:p-8 shadow-retro-lg space-y-6" aria-labelledby="heading-stage1">
+                
+                <!-- Dynamic Back Button -->
+                <button onclick="goBack()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-spooky-void hover:bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition focus:ring-4 focus:ring-spooky-necro focus:outline-none shadow-retro-sm mb-1" aria-label="Retreat to the main gate entrance">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>RETREAT</span>
+                </button>
+
+                <div class="flex items-center gap-3 border-b-4 border-slate-800 pb-4">
+                    <span class="bg-spooky-necro text-spooky-void font-black w-10 h-10 rounded-full flex items-center justify-center text-sm comic-border shadow-retro-sm" aria-hidden="true">1</span>
+                    <div>
+                        <h2 id="heading-stage1" tabindex="-1" class="text-lg md:text-xl font-black uppercase text-white tracking-wider focus:outline-none">Stage 1: Decoding the Tombstone Inscription</h2>
+                        <p class="text-xs text-slate-400 font-bold">Inspect the ancient text and choose your battle stance!</p>
+                    </div>
+                </div>
+
+                <!-- Cursed Prompt Stone -->
+                <div class="bg-slate-900 text-slate-300 p-6 rounded-2xl comic-border shadow-retro relative border-l-4 border-spooky-necro" aria-label="TSI Writing Prompt scroll">
+                    <div class="absolute -top-3 -left-3 bg-spooky-blood text-spooky-void text-[10px] font-black px-2.5 py-1 rounded-lg comic-border rotate-[-4deg] tracking-widest uppercase" aria-hidden="true">
+                        CURSED TOMBSTONE INSCRIPTION
+                    </div>
+                    <p class="text-sm md:text-base font-serif font-bold leading-relaxed mt-1">
+                        "Some people argue that college degrees have become overpriced credentials that do not guarantee career stability, suggesting vocational training is better. Others insist that higher education is still the premier pathway for critical thinking and financial security. Write an essay explaining your position on whether a traditional college degree is still worth the investment."
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-xs md:text-sm font-bold text-slate-300">
+                        🛡️ <span class="text-spooky-gold font-black">Sir Sage's Advice:</span> Scribes who ride the fence and fail to choose a side will be drained of their power instantly. Choose a decisive direction to focus your blade:
+                    </p>
+
+                    <div class="grid grid-cols-1 gap-3.5" role="group" aria-label="Decide your thesis stance">
+                        
+                        <!-- Option A: Weak/Fence riding -->
+                        <button onclick="selectStage1(1)" class="w-full text-left p-4 rounded-xl border-2 border-slate-800 bg-spooky-void/50 hover:bg-red-950/20 hover:border-spooky-blood group transition-all flex items-start gap-3 focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                            <span class="w-6 h-6 rounded-full bg-slate-900 group-hover:bg-red-950 text-slate-400 font-black text-xs flex items-center justify-center shrink-0 border border-slate-700" aria-hidden="true">A</span>
+                            <div class="flex-1">
+                                <p class="text-xs font-black text-slate-500 group-hover:text-spooky-blood uppercase">The Passive Compromise (Fence-riding)</p>
+                                <p class="text-sm font-bold text-slate-300 mt-0.5">"I will write that college works for some folks but trade school is awesome for others, and both arguments are totally right."</p>
+                                <div id="fenceWarning" class="hidden text-xs text-spooky-blood font-black mt-2 bg-red-950/40 p-2.5 rounded-lg border border-spooky-blood">
+                                    💀 PSYCHIC INFLICT! Choosing this route drains your health resolve. Prompt evaluators capped focus of neutral essays to a meager 3 points maximum.
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Option B: Strong Affirmative -->
+                        <button onclick="selectStage1(2)" class="w-full text-left p-4 rounded-xl border-2 border-slate-800 bg-spooky-void/50 hover:bg-emerald-950/20 hover:border-spooky-ghost group transition-all flex items-start gap-3 focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                            <span class="w-6 h-6 rounded-full bg-slate-900 group-hover:bg-emerald-950 text-slate-400 font-black text-xs flex items-center justify-center shrink-0 border border-slate-700" aria-hidden="true">B</span>
+                            <div>
+                                <p class="text-xs font-black text-slate-500 group-hover:text-spooky-ghost uppercase">The College Sentinel (Affirmative)</p>
+                                <p class="text-sm font-bold text-slate-300 mt-0.5">"I will state clearly that traditional university pathways remain worth the financial cost, using points on long-term earnings and systematic cognitive development."</p>
+                            </div>
+                        </button>
+
+                        <!-- Option C: Strong Negative -->
+                        <button onclick="selectStage1(3)" class="w-full text-left p-4 rounded-xl border-2 border-slate-800 bg-spooky-void/50 hover:bg-emerald-950/20 hover:border-spooky-ghost group transition-all flex items-start gap-3 focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                            <span class="w-6 h-6 rounded-full bg-slate-900 group-hover:bg-emerald-950 text-slate-400 font-black text-xs flex items-center justify-center shrink-0 border border-slate-700" aria-hidden="true">C</span>
+                            <div>
+                                <p class="text-xs font-black text-slate-500 group-hover:text-spooky-ghost uppercase">The Guild Craftsman (Negative)</p>
+                                <p class="text-sm font-bold text-slate-300 mt-0.5">"I will argue aggressively that college degrees are outdated credentials, citing devastating student loan debt and the high profit margins of trades."</p>
+                            </div>
+                        </button>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- STAGE 2: Forging the Thesis Weapon -->
+            <section id="screen-stage2" class="hidden bg-spooky-abyss rounded-3xl comic-border p-6 md:p-8 shadow-retro-lg space-y-6" aria-labelledby="heading-stage2">
+                
+                <!-- Dynamic Back Button -->
+                <button onclick="goBack()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-spooky-void hover:bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition focus:ring-4 focus:ring-spooky-necro focus:outline-none shadow-retro-sm mb-1" aria-label="Retreat to the stance choosing chamber">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>RETREAT</span>
+                </button>
+
+                <div class="flex items-center gap-3 border-b-4 border-slate-800 pb-4">
+                    <span class="bg-spooky-necro text-spooky-void font-black w-10 h-10 rounded-full flex items-center justify-center text-sm comic-border shadow-retro-sm" aria-hidden="true">2</span>
+                    <div>
+                        <h2 id="heading-stage2" tabindex="-1" class="text-lg md:text-xl font-black uppercase text-white tracking-wider focus:outline-none">Stage 2: The Runecrafting Anvil</h2>
+                        <p class="text-xs text-slate-400 font-bold">Forge your thesis blade. Select the path that aligns your focus!</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-xl border-2 border-spooky-crypt flex items-center gap-3">
+                    <span class="text-2xl" aria-hidden="true">⚡</span>
+                    <p class="text-xs font-black text-slate-300">
+                        Active Stance: <span id="stanceText" class="text-spooky-necro uppercase font-extrabold">...</span>. Select the runic formula to craft your blade:
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <div id="thesisOptions" class="grid grid-cols-1 gap-3.5" role="group" aria-label="Select a Runic Thesis Path">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- STAGE 3: Gathering Shields of Evidence -->
+            <section id="screen-stage3" class="hidden bg-spooky-abyss rounded-3xl comic-border p-6 md:p-8 shadow-retro-lg space-y-6" aria-labelledby="heading-stage3">
+                
+                <!-- Dynamic Back Button -->
+                <button onclick="goBack()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-spooky-void hover:bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition focus:ring-4 focus:ring-spooky-necro focus:outline-none shadow-retro-sm mb-1" aria-label="Retreat to the thesis smithing anvil">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>RETREAT</span>
+                </button>
+
+                <div class="flex items-center gap-3 border-b-4 border-slate-800 pb-4">
+                    <span class="bg-spooky-ghost text-spooky-void font-black w-10 h-10 rounded-full flex items-center justify-center text-sm comic-border shadow-retro-sm" aria-hidden="true">3</span>
+                    <div>
+                        <h2 id="heading-stage3" tabindex="-1" class="text-lg md:text-xl font-black uppercase text-white tracking-wider focus:outline-none">Stage 3: The Crypt of Proof</h2>
+                        <p class="text-xs text-slate-400 font-bold">Hearsay and myths shatter under attack. Arm yourself with empirical shields!</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-xs md:text-sm font-bold text-slate-300">
+                        An essay requires <strong class="text-white">highly specific, authoritative examples</strong>. Choose your shielding evidence combo:
+                    </p>
+
+                    <div id="evidenceOptions" class="grid grid-cols-1 gap-4" role="group" aria-label="Choose your shields of evidence">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- STAGE 4: Assembling Paragraph Armor -->
+            <section id="screen-stage4" class="hidden bg-spooky-abyss rounded-3xl comic-border p-6 md:p-8 shadow-retro-lg space-y-6" aria-labelledby="heading-stage4">
+                
+                <!-- Dynamic Back Button -->
+                <button onclick="goBack()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-spooky-void hover:bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition focus:ring-4 focus:ring-spooky-necro focus:outline-none shadow-retro-sm mb-1" aria-label="Retreat to the evidence gathering chamber">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>RETREAT</span>
+                </button>
+
+                <div class="flex items-center gap-3 border-b-4 border-slate-800 pb-4">
+                    <span class="bg-spooky-ember text-spooky-void font-black w-10 h-10 rounded-full flex items-center justify-center text-sm comic-border shadow-retro-sm" aria-hidden="true">4</span>
+                    <div>
+                        <h2 id="heading-stage4" tabindex="-1" class="text-lg md:text-xl font-black uppercase text-white tracking-wider focus:outline-none">Stage 4: Aligning the Sentinel Plate</h2>
+                        <p class="text-xs text-slate-400 font-bold">Unscramble the layout of a passing argumentative scroll before the ceiling collapses!</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-xs md:text-sm font-bold text-slate-300">
+                        Move the structural components to fit a logical <strong class="text-spooky-necro uppercase">5-Paragraph Academic Blueprint</strong>:
+                    </p>
+
+                    <!-- Sorting controls -->
+                    <div id="sortContainer" class="space-y-3" role="list" aria-label="Draggable essay outline sequence list">
+                        <!-- Injected via JS -->
+                    </div>
+
+                    <div class="flex justify-end pt-4 border-t-2 border-slate-800">
+                        <button onclick="checkParagraphSort()" class="bg-spooky-gold hover:bg-amber-500 text-spooky-void font-black px-6 py-3 rounded-xl comic-border shadow-retro hover:-translate-y-0.5 transition-transform text-xs uppercase tracking-wider focus:ring-4 focus:ring-white focus:outline-none">
+                            SECURE THE STRUCTURAL PLATES 🛡️
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STAGE 5: Slaying the Grammar Goblins -->
+            <section id="screen-stage5" class="hidden bg-spooky-abyss rounded-3xl comic-border p-6 md:p-8 shadow-retro-lg space-y-6" aria-labelledby="heading-stage5">
+                
+                <!-- Dynamic Back Button -->
+                <button onclick="goBack()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-spooky-void hover:bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition focus:ring-4 focus:ring-spooky-necro focus:outline-none shadow-retro-sm mb-1" aria-label="Retreat to the paragraph alignment chamber">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>RETREAT</span>
+                </button>
+
+                <div class="flex items-center gap-3 border-b-4 border-slate-800 pb-4">
+                    <span class="bg-spooky-blood text-white font-black w-10 h-10 rounded-full flex items-center justify-center text-sm comic-border shadow-retro-sm" aria-hidden="true">5</span>
+                    <div>
+                        <h2 id="heading-stage5" tabindex="-1" class="text-lg md:text-xl font-black uppercase text-white tracking-wider focus:outline-none">Stage 5: Banishing the Syntax Phantoms</h2>
+                        <p class="text-xs text-slate-400 font-bold">The dungeon mist has manifested sentence errors! Defeat them or lose resolve.</p>
+                    </div>
+                </div>
+
+                <!-- Custom Vector Spooky Phantom SVG -->
+                <div class="flex justify-center my-4">
+                    <div class="bg-slate-950 p-4 rounded-2xl comic-border shadow-retro flex items-center gap-4 max-w-md">
+                        <svg class="w-16 h-16 shrink-0 animate-float text-spooky-ghost" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vector graphic of a floating syntax phantom wraith.">
+                            <title>A dangerous floating Syntax Wraith</title>
+                            <!-- Ghost shape -->
+                            <path d="M20 70 C20 30 80 30 80 70 C80 80 70 90 50 80 C30 90 20 80 20 70 Z" fill="#1e293b" stroke="#22c55e" stroke-width="4" stroke-linejoin="round"/>
+                            <!-- Ghostly glow -->
+                            <path d="M20 70 C20 30 80 30 80 70" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Glowing spooky red eyes -->
+                            <circle cx="40" cy="48" r="6" fill="#ef4444"/>
+                            <circle cx="60" cy="48" r="6" fill="#ef4444"/>
+                            <!-- Ghostly clawed fingers -->
+                            <path d="M15 65 L5 70 M85 65 L95 70" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Eerie mouth -->
+                            <path d="M35 62 Q50 72 65 62" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                        <div>
+                            <h3 class="font-black text-xs text-spooky-blood uppercase">AMBUSHED BY SYNTAX PHANTOMS!</h3>
+                            <p class="text-[10px] text-slate-400 font-bold">They drain your score potential by turning cohesive paragraphs into a chaotic mess. Purify them!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <!-- Phantom A: Comma Splice -->
+                    <div class="bg-spooky-void p-4 rounded-xl border-2 border-spooky-crypt space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black text-spooky-blood uppercase">👾 PHANTOM I: The Comma Splice Wraith</span>
+                            <span class="text-[9px] bg-red-950 text-spooky-blood px-2 py-0.5 rounded-full font-extrabold uppercase" aria-hidden="true">Weak Conjunction</span>
+                        </div>
+                        <p class="text-xs md:text-sm font-bold italic text-slate-300 bg-spooky-abyss p-3 rounded-lg border border-slate-800 font-serif">
+                            "High school trade pathways provide rapid skills, many graduates begin earning income instantly."
+                        </p>
+                        <div class="grid grid-cols-1 gap-2" role="group" aria-label="Select the correct syntax formulation for challenge 1">
+                            <button id="btn-g1-w" onclick="answerGrammar(1, 'wrong')" class="text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                                A) "High school trade pathways provide rapid skills, therefore, many graduates begin earning income instantly."
+                            </button>
+                            <button id="btn-g1-c" onclick="answerGrammar(1, 'correct')" class="text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                                B) "High school trade pathways provide rapid skills; consequently, many graduates begin earning income instantly."
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Phantom B: Run-on sentence -->
+                    <div class="bg-spooky-void p-4 rounded-xl border-2 border-spooky-crypt space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black text-spooky-blood uppercase">👾 PHANTOM II: The Run-On Specter</span>
+                            <span class="text-[9px] bg-red-950 text-spooky-blood px-2 py-0.5 rounded-full font-extrabold uppercase" aria-hidden="true">Fused Sentences</span>
+                        </div>
+                        <p class="text-xs md:text-sm font-bold italic text-slate-300 bg-spooky-abyss p-3 rounded-lg border border-slate-800 font-serif">
+                            "Academic degrees foster analytical abilities students learn to interrogate premises and write soundly."
+                        </p>
+                        <div class="grid grid-cols-1 gap-2" role="group" aria-label="Select the correct syntax formulation for challenge 2">
+                            <button id="btn-g2-c" onclick="answerGrammar(2, 'correct')" class="text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                                A) "Academic degrees foster analytical abilities. As a result, students learn to interrogate premises and write soundly."
+                            </button>
+                            <button id="btn-g2-w" onclick="answerGrammar(2, 'wrong')" class="text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition focus:ring-4 focus:ring-spooky-necro focus:outline-none">
+                                B) "Academic degrees foster analytical abilities and students learn to interrogate premises and write soundly."
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- STAGE 6: The Judgement Hall (Results Screen) -->
+            <section id="screen-stage6" class="hidden bg-spooky-abyss rounded-3xl comic-border p-6 md:p-10 shadow-retro-lg space-y-6" aria-labelledby="heading-stage6">
+                
+                <!-- Dynamic Back Button -->
+                <button onclick="goBack()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-spooky-void hover:bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition focus:ring-4 focus:ring-spooky-necro focus:outline-none shadow-retro-sm mb-1" aria-label="Retreat to the syntax phantom challenges">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>RETREAT</span>
+                </button>
+
+                <div class="text-center space-y-3">
+                    <span id="finalRankBadge" class="bg-spooky-ghost text-spooky-void text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full comic-border shadow-retro-sm inline-block">
+                        DUNGEON RAID COMPLETE
+                    </span>
+                    <h2 id="heading-stage6" tabindex="-1" class="text-2xl md:text-3xl font-black uppercase text-white font-serif focus:outline-none">THE JUDGEMENT OF SIR SAGE</h2>
+                    <p class="text-xs md:text-sm text-slate-400 font-bold max-w-md mx-auto">
+                        Your essay has been dragged before the high court of composition! Here is your official trial diagnosis:
+                    </p>
+                </div>
+
+                <!-- Final Score Card -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 bg-slate-950 p-6 rounded-2xl comic-border shadow-retro" aria-label="TSI Score Board Metrics">
+                    
+                    <div class="md:col-span-4 flex flex-col items-center justify-center text-center p-4 border-b-2 md:border-b-0 md:border-r-2 border-slate-800">
+                        <h3 class="text-xs font-black uppercase text-slate-500">FINAL TSI ESTIMATED SCORE</h3>
+                        <span id="finalScore" class="text-7xl font-black text-spooky-ember my-2 animate-pulse" aria-live="polite">0</span>
+                        <span id="placementMessage" class="text-xs font-black px-3 py-1.5 rounded-full bg-spooky-void text-white comic-border shadow-retro-sm">Determining fate...</span>
+                    </div>
+
+                    <!-- Diagnostics -->
+                    <div class="md:col-span-8 flex flex-col justify-center space-y-3.5">
+                        <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider">🏆 THE RUNIC RUBRIC MATRIX</h3>
+                        
+                        <ul class="space-y-2 text-xs font-bold" aria-label="TSI Rubric Achievements List">
+                            <li class="flex items-start gap-2 text-slate-300">
+                                <span id="r1-icon" aria-hidden="true">🟢</span>
+                                <div>
+                                    <strong class="text-white font-black block">Purpose and Focus</strong>
+                                    <span id="r1-desc" class="text-slate-400 font-medium block">Clear position without fence-riding.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2 text-slate-300">
+                                <span id="r2-icon" aria-hidden="true">🟢</span>
+                                <div>
+                                    <strong class="text-white font-black block">Organization and Structure</strong>
+                                    <span id="r2-desc" class="text-slate-400 font-medium block">Cohesive 5-paragraph template properly locked.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2 text-slate-300">
+                                <span id="r3-icon" aria-hidden="true">🟢</span>
+                                <div>
+                                    <strong class="text-white font-black block">Development and Support</strong>
+                                    <span id="r3-desc" class="text-slate-400 font-medium block">Empirical studies collected and mapped.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-2 text-slate-300">
+                                <span id="r4-icon" aria-hidden="true">🟢</span>
+                                <div>
+                                    <strong class="text-white font-black block">Sentence Conventions</strong>
+                                    <span id="r4-desc" class="text-slate-400 font-medium block">Syntax monsters vanquished.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Knightly Blueprint Scroll -->
+                <div class="bg-spooky-crypt/40 p-5 rounded-xl border-2 border-spooky-crypt space-y-2 text-slate-300" aria-label="Sir Sage's Scroll of Laws Summary">
+                    <h3 class="text-xs font-black text-spooky-gold uppercase tracking-wider flex items-center gap-1.5">
+                        📜 SIR SAGE'S SCROLL OF LAWS
+                    </h3>
+                    <p class="text-xs leading-relaxed font-semibold text-white">
+                        Lock these values into your mind before entering the real examination hall:
+                    </p>
+                    <ul class="list-disc pl-5 text-[11px] space-y-1 text-slate-400 font-bold">
+                        <li>You must draw a line in the sand. "Both arguments have great merits" is the language of cowards and guarantees a failing mark.</li>
+                        <li>Support your points with solid metrics (such as census data, history, and economic formulas) instead of vague rumors.</li>
+                        <li>Never bind two full thoughts together with just a comma—use a strong semicolon, period, or comma with a coordinating conjunction (FANBOYS).</li>
+                    </ul>
+                </div>
+
+                <!-- Navigation controls -->
+                <div class="flex flex-col sm:flex-row justify-center gap-3">
+                    <button onclick="resetQuest()" class="bg-spooky-blood text-spooky-void hover:bg-red-700 hover:text-white font-black px-6 py-3.5 rounded-xl comic-border shadow-retro text-xs uppercase tracking-wider transition focus:ring-4 focus:ring-white focus:outline-none" aria-label="Restart the entire quest simulation">
+                        🔁 Play Again
+                    </button>
+                    <button onclick="goToTab('archives')" class="bg-spooky-gold text-spooky-void hover:bg-amber-500 font-black px-6 py-3.5 rounded-xl comic-border shadow-retro text-xs uppercase tracking-wider transition focus:ring-4 focus:ring-white focus:outline-none">
+                        📜 Inspect the Tombs
+                    </button>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ==================== TAB: ESSAY ARCHIVES (THE TOMBS) ==================== -->
+        <section id="tab-content-archives" class="hidden space-y-6" aria-labelledby="heading-archives">
+            
+            <div class="bg-spooky-abyss rounded-3xl comic-border p-6 shadow-retro-lg space-y-6">
+                
+                <div class="text-center max-w-2xl mx-auto space-y-2">
+                    <span class="bg-spooky-necro text-spooky-void text-xs font-black uppercase px-3 py-1 rounded-full comic-border shadow-retro-sm inline-block">
+                        Explore the Archives
+                    </span>
+                    <h2 id="heading-archives" tabindex="-1" class="text-2xl md:text-3xl font-black uppercase text-white tracking-widest font-serif focus:outline-none">The Scholarly Tombs</h2>
+                    <p class="text-xs md:text-sm text-slate-400 font-bold">
+                        Analyze and compare fully written essay submissions to understand how graders score real papers.
+                    </p>
+                </div>
+
+                <!-- Score Switchers -->
+                <div class="flex justify-center gap-2.5" role="group" aria-label="Select an essay score category to inspect">
+                    <button onclick="selectArchiveScore(3)" id="btn-arc-3" class="px-4 py-2.5 bg-red-950/40 hover:bg-red-900/40 text-red-400 text-xs font-black rounded-xl comic-border shadow-retro-sm transition focus:ring-4 focus:ring-white focus:outline-none">
+                        ❌ Score 3 (Remedial)
+                    </button>
+                    <button onclick="selectArchiveScore(5)" id="btn-arc-5" class="px-4 py-2.5 bg-amber-950/40 hover:bg-amber-900/40 text-amber-400 text-xs font-black rounded-xl comic-border shadow-retro-sm transition focus:ring-4 focus:ring-white focus:outline-none">
+                        ⚠️ Score 5/6 (Passing)
+                    </button>
+                    <button onclick="selectArchiveScore(8)" id="btn-arc-8" class="px-4 py-2.5 bg-emerald-950/40 hover:bg-emerald-900/40 text-emerald-400 text-xs font-black rounded-xl comic-border shadow-retro-sm transition focus:ring-4 focus:ring-white focus:outline-none">
+                        🏆 Score 8 (Exemplary)
+                    </button>
+                </div>
+
+                <!-- Comparative Display Area -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+                    
+                    <!-- Full Essay Text (L: 8 Cols) -->
+                    <div class="lg:col-span-8 bg-spooky-parchment p-6 rounded-2xl comic-border shadow-retro text-spooky-void relative" aria-label="Loaded essay scroll reader panel">
+                        <div class="absolute -top-3 left-4 bg-spooky-void text-white text-xs font-black px-3 py-1.5 rounded-md comic-border uppercase tracking-widest" aria-hidden="true">
+                            Tomb Scroll: Score <span id="archiveHeaderScore">3</span>
+                        </div>
+                        
+                        <div id="archiveEssayBody" class="space-y-4 text-sm md:text-base font-serif leading-relaxed pt-3 select-all">
+                            <!-- Injected dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Margin Annotations (R: 4 Cols) -->
+                    <aside class="lg:col-span-4 bg-spooky-void p-5 rounded-2xl comic-border shadow-retro flex flex-col justify-between" aria-label="Sir Sage's analytical notes panel">
+                        <div>
+                            <div class="flex items-center gap-2 border-b-2 border-slate-800 pb-2.5 mb-3">
+                                <span class="text-xl" aria-hidden="true">🎓</span>
+                                <h3 class="font-black text-xs uppercase text-white tracking-widest">Sir Sage's Critique</h3>
+                            </div>
+                            <div id="archiveFeedbackText" class="text-xs text-slate-300 font-semibold leading-relaxed space-y-3">
+                                <!-- Injected dynamically via JS -->
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t-2 border-slate-800 mt-4">
+                            <span id="archiveRubricResult" class="text-[10px] font-black px-2.5 py-1.5 rounded-full inline-block uppercase">---</span>
+                        </div>
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-spooky-abyss text-slate-500 text-center py-5 border-t-4 border-spooky-void text-xs font-bold mt-auto">
+        <p>© 2026 TSI Crypt of the Quill-Slayer • Secure your college composition credits!</p>
+    </footer>
+
+    <!-- Game JS Engine -->
+    <script>
+        // Game State Variables
+        const state = {
+            activeTab: 'quest',
+            currentStage: 0,
+            resolve: 100, // Rhetorical Resolve HP
+            score: 1, // Points mapped on standard WritePlacer scale
+            stance: '',
+            thesisId: null,
+            evidenceId: null,
+            grammar1Answered: false,
+            grammar2Answered: false,
+            grammar1Correct: false,
+            grammar2Correct: false,
+
+            // Paragraph structural ordering puzzle
+            paragraphs: [
+                { id: 'intro', text: 'Introduction & Clear Thesis (Chooses a strong, single direction)', correctOrder: 0 },
+                { id: 'body1', text: 'Body Paragraph 1 (Illustrates the primary point with a focused, factual example)', correctOrder: 1 },
+                { id: 'body2', text: 'Body Paragraph 2 (Details another angle of support using credible logical references)', correctOrder: 2 },
+                { id: 'counter', text: 'Counterargument & Rebuttal (Concedes a valid counter, then logically disassembles it)', correctOrder: 3 },
+                { id: 'conclusion', text: 'Conclusion (Synthesizes all details and signs off with a memorable concept)', correctOrder: 4 }
+            ]
+        };
+
+        // Screen reader announcement utility
+        function announceToScreenReader(message) {
+            const announcer = document.getElementById('accessibleAnnouncer');
+            if (announcer) {
+                announcer.textContent = message;
+            }
+        }
+
+        // Navigation Tab Switching
+        function goToTab(tabId) {
+            state.activeTab = tabId;
+            const tabQuest = document.getElementById('tab-content-quest');
+            const tabArchives = document.getElementById('tab-content-archives');
+            const btnQuest = document.getElementById('btn-tab-quest');
+            const btnArchives = document.getElementById('btn-tab-archives');
+
+            if (tabId === 'quest') {
+                tabQuest.classList.remove('hidden');
+                tabArchives.classList.add('hidden');
+                btnQuest.className = "bg-spooky-necro text-spooky-void font-black px-4 py-2 text-xs md:text-sm rounded-xl comic-border shadow-retro-sm focus:ring-4 focus:ring-white focus:outline-none";
+                btnArchives.className = "bg-spooky-abyss text-slate-300 hover:bg-spooky-necro hover:text-spooky-void font-black px-4 py-2 text-xs md:text-sm rounded-xl comic-border shadow-retro-sm transition focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+                document.getElementById('hudStats').style.opacity = "1";
+                announceToScreenReader("Switched to the Quest arena.");
+            } else {
+                tabQuest.classList.add('hidden');
+                tabArchives.classList.remove('hidden');
+                btnQuest.className = "bg-spooky-abyss text-slate-300 hover:bg-spooky-necro hover:text-spooky-void font-black px-4 py-2 text-xs md:text-sm rounded-xl comic-border shadow-retro-sm transition focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+                btnArchives.className = "bg-spooky-necro text-spooky-void font-black px-4 py-2 text-xs md:text-sm rounded-xl comic-border shadow-retro-sm focus:ring-4 focus:ring-white focus:outline-none";
+                document.getElementById('hudStats').style.opacity = "0.3"; // Dim metrics during research
+                selectArchiveScore(8); // Default displaying the best paper first
+                announceToScreenReader("Switched to the Scholarly Tombs. Select score buttons to review specimen essays.");
+                setTimeout(() => {
+                    document.getElementById('heading-archives').focus();
+                }, 100);
+            }
+        }
+
+        // Custom Modal Dialogue Box (ADA Compliant with button focus shift)
+        function triggerModal(title, text, icon) {
+            const modal = document.getElementById('gameModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDesc').textContent = text;
+            document.getElementById('modalIcon').textContent = icon;
+            modal.classList.remove('hidden');
+            announceToScreenReader(`${title}. ${text}`);
+            setTimeout(() => {
+                document.getElementById('modalCloseBtn').focus();
+            }, 100);
+        }
+
+        // Close dialogue modal
+        function closeModal() {
+            document.getElementById('gameModal').classList.add('hidden');
+            // Return focus to active screen
+            const activeHeadingId = `heading-stage${state.currentStage}`;
+            const activeHeading = document.getElementById(activeHeadingId);
+            if (activeHeading) {
+                activeHeading.focus();
+            } else {
+                const welcomeHeading = document.getElementById('heading-welcome');
+                if (welcomeHeading) welcomeHeading.focus();
+            }
+        }
+
+        // Recalculates user score strictly based on current choices (Prevents backtracking point math bugs)
+        function calculateScore() {
+            let score = 1;
+            if (state.stance !== '') {
+                score = 3;
+            }
+            if (state.thesisId) {
+                if (state.thesisId.includes('strong')) score += 2;
+                else if (state.thesisId.includes('center')) score += 1;
+            }
+            if (state.evidenceId && state.evidenceId.includes('strong')) {
+                score += 2;
+            }
+            if (state.currentStage >= 5) {
+                score += 1; // Awarded for correctly sorting Paragraph outline
+            }
+            if (state.grammar1Answered && state.grammar1Correct) {
+                score += 1;
+            }
+            if (state.grammar2Answered && state.grammar2Correct) {
+                score += 1;
+            }
+            return Math.min(8, Math.max(1, score));
+        }
+
+        // Programmatic Backtrack Controller
+        function goBack() {
+            if (state.currentStage === 1) {
+                state.stance = '';
+                state.currentStage = 0;
+                showScreen('welcome');
+            } else if (state.currentStage === 2) {
+                state.thesisId = null;
+                // Revert weapon label
+                document.getElementById('inv-blade').textContent = "None (Locked)";
+                document.getElementById('inv-blade').className = "text-spooky-blood font-bold";
+                state.currentStage = 1;
+                showScreen('stage1');
+            } else if (state.currentStage === 3) {
+                state.evidenceId = null;
+                // Revert shield label
+                document.getElementById('inv-shield').textContent = "None (Locked)";
+                document.getElementById('inv-shield').className = "text-spooky-blood font-bold";
+                state.currentStage = 2;
+                showScreen('stage2');
+            } else if (state.currentStage === 4) {
+                state.currentStage = 3;
+                showScreen('stage3');
+            } else if (state.currentStage === 5) {
+                // Revert paragraph greaves
+                document.getElementById('inv-greaves').textContent = "Unstructured";
+                document.getElementById('inv-greaves').className = "text-slate-300";
+                state.currentStage = 4;
+                // Reshuffle paragraph sorting representation
+                state.paragraphs.sort(() => Math.random() - 0.5);
+                renderSortPuzzle();
+                showScreen('stage4');
+            } else if (state.currentStage === 6) {
+                // From Stage 6 back to Stage 5
+                // Reset grammar phantoms
+                state.grammar1Answered = false;
+                state.grammar1Correct = false;
+                state.grammar2Answered = false;
+                state.grammar2Correct = false;
+                
+                // Reset button classes for Grammar Phantoms
+                const btnG1W = document.getElementById('btn-g1-w');
+                const btnG1C = document.getElementById('btn-g1-c');
+                const btnG2C = document.getElementById('btn-g2-c');
+                const btnG2W = document.getElementById('btn-g2-w');
+
+                btnG1W.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+                btnG1C.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+                btnG2C.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+                btnG2W.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+                
+                state.currentStage = 5;
+                showScreen('stage5');
+            }
+            state.score = calculateScore();
+            updateStats();
+            announceToScreenReader(`Retreated. Now at Stage ${state.currentStage}.`);
+        }
+
+        // Update Game HP and Score displays
+        function updateStats() {
+            // Cap Resolve HP
+            state.resolve = Math.max(0, Math.min(100, state.resolve));
+            document.getElementById('hpValue').textContent = `${state.resolve} / 100`;
+            document.getElementById('hpBar').style.width = `${state.resolve}%`;
+            document.getElementById('scoreBadge').textContent = `${state.score} / 8 Points`;
+
+            // Progress bar mapping from stage (18% per stage + baseline)
+            const progress = Math.min(100, state.currentStage * 18 + 10);
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        // Start Dungeon Quest
+        function startQuest() {
+            state.currentStage = 1;
+            state.score = 1;
+            state.resolve = 100;
+            updateStats();
+            showScreen('stage1');
+            announceToScreenReader("Quest started! Stage 1: Decoding the Tombstone Inscription.");
+        }
+
+        // Focus management: Shift focus to screen heading on dynamic load
+        function showScreen(screenId) {
+            const screens = ['welcome', 'stage1', 'stage2', 'stage3', 'stage4', 'stage5', 'stage6'];
+            screens.forEach(s => {
+                const el = document.getElementById(`screen-${s}`);
+                if (s === screenId) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Shift dynamic focus to current header card for instant screen reader orientation
+            setTimeout(() => {
+                const headingId = screenId === 'welcome' ? 'heading-welcome' : `heading-${screenId}`;
+                const heading = document.getElementById(headingId);
+                if (heading) {
+                    heading.focus();
+                }
+            }, 150);
+        }
+
+        // Reset game state completely
+        function resetQuest() {
+            state.currentStage = 0;
+            state.score = 1;
+            state.resolve = 100;
+            state.stance = '';
+            state.thesisId = null;
+            state.evidenceId = null;
+            state.grammar1Answered = false;
+            state.grammar2Answered = false;
+            state.grammar1Correct = false;
+            state.grammar2Correct = false;
+
+            // Restore inventory labels
+            document.getElementById('inv-blade').textContent = "None (Locked)";
+            document.getElementById('inv-blade').className = "text-spooky-blood font-bold";
+            document.getElementById('inv-shield').textContent = "None (Locked)";
+            document.getElementById('inv-shield').className = "text-spooky-blood font-bold";
+            document.getElementById('inv-greaves').textContent = "Unstructured";
+            document.getElementById('inv-greaves').className = "text-slate-300";
+
+            // Restore grammar buttons
+            const btnG1W = document.getElementById('btn-g1-w');
+            const btnG1C = document.getElementById('btn-g1-c');
+            const btnG2C = document.getElementById('btn-g2-c');
+            const btnG2W = document.getElementById('btn-g2-w');
+
+            btnG1W.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+            btnG1C.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+            btnG2C.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+            btnG2W.className = "text-left p-3 rounded-lg border-2 border-slate-800 bg-spooky-abyss hover:bg-slate-900 text-xs font-bold text-slate-300 transition pointer-events-auto focus:ring-4 focus:ring-spooky-necro focus:outline-none";
+
+            // Shuffle outline array
+            state.paragraphs.sort(() => Math.random() - 0.5);
+
+            document.getElementById('fenceWarning').classList.add('hidden');
+            updateStats();
+            showScreen('welcome');
+            announceToScreenReader("Quest reset to the welcome lobby.");
+        }
+
+        // Stage 1 Action Selection
+        function selectStage1(optionId) {
+            if (optionId === 1) {
+                // Take severe damage from fence riding
+                state.resolve -= 35;
+                state.score = calculateScore();
+                document.getElementById('fenceWarning').classList.remove('hidden');
+                updateStats();
+                triggerModal("Resolve Damaged! ☠️", "Sir Sage shouts: 'Fenceriding is cowardice! Choosing neutrality causes your analytical focus to crumble, earning you major evaluation penalties.'", "💀");
+                announceToScreenReader("Rhetorical resolve damaged by choosing a fence-riding stance. HP reduced to " + state.resolve);
+                return;
+            }
+
+            state.stance = (optionId === 2) ? 'Affirmative' : 'Negative';
+            state.currentStage = 2;
+            state.score = calculateScore();
+            updateStats();
+            setupThesisOptions();
+            showScreen('stage2');
+            triggerModal("Stance Attuned! ⚔️", "Sir Sage nods: 'Excellent! You have chosen a concrete direction. Now, let us forge a thesis statement to channel your logic.'", "🗡️");
+        }
+
+        // Setup Thesis Statement Choices (ADA compliant with structured button nodes)
+        function setupThesisOptions() {
+            const container = document.getElementById('thesisOptions');
+            container.innerHTML = '';
+
+            const thesisPool = {
+                Affirmative: [
+                    {
+                        id: 'aff_strong',
+                        title: 'Left Path',
+                        text: 'Although rising modern tuition rates present valid financial strain, a traditional university degree remains worth the investment because it systematically expands critical thinking capacities and unlocks superior lifelong financial security.',
+                        feedback: "Sir Sage roars: 'Excellent! You chose the sharp Left Path—a masterful complex thesis that maps your journey perfectly!'",
+                        scoreEffect: 2,
+                        hpEffect: 10
+                    },
+                    {
+                        id: 'aff_center',
+                        title: 'Center Path',
+                        text: 'Traditional college degrees are still worth the investment because they offer valuable networking opportunities and career credentials.',
+                        feedback: "Sir Sage notes: 'You tread the cautious Center Path. Your statement is clear and correct, but lacks the deep analytical nuance of a true high-scoring thesis.'",
+                        scoreEffect: 1,
+                        hpEffect: 0
+                    },
+                    {
+                        id: 'aff_weak',
+                        title: 'Right Path',
+                        text: 'Traditional degrees are totally still worth it because everyone wants to get high paying jobs and have a solid future.',
+                        feedback: "Sir Sage critiques: 'You chose the fragile Right Path! This thesis is too informal and previews no concrete roadmap.'",
+                        scoreEffect: 0,
+                        hpEffect: -20
+                    }
+                ],
+                Negative: [
+                    {
+                        id: 'neg_strong',
+                        title: 'Left Path',
+                        text: 'Despite standard cultural pressures surrounding higher education, traditional college degrees are no longer worth the investment due to staggering student loan debt inflation and the rising profitability of technical trades.',
+                        feedback: "Sir Sage roars: 'A lethal choice! The Left Path yields a highly advanced thesis blueprint that prepares you for battle.'",
+                        scoreEffect: 2,
+                        hpEffect: 10
+                    },
+                    {
+                        id: 'neg_center',
+                        title: 'Center Path',
+                        text: 'Traditional degrees are no longer worth the investment because students accumulate too much debt and technical vocations are highly reliable alternatives.',
+                        feedback: "Sir Sage notes: 'A steady choice along the Center Path. It is a functional claim, though it lacks the sophisticated complexity of superior writing.'",
+                        scoreEffect: 1,
+                        hpEffect: 0
+                    },
+                    {
+                        id: 'neg_weak',
+                        title: 'Right Path',
+                        text: 'College degrees are outdated scams and high school grads should pursue trades to make fast wealth directly.',
+                        feedback: "Sir Sage critiques: 'You chose the reckless Right Path! It relies on emotional bias and lacks scholarly authority.'",
+                        scoreEffect: 0,
+                        hpEffect: -20
+                    }
+                ]
+            };
+
+            const selectedPool = thesisPool[state.stance];
+            selectedPool.forEach((item) => {
+                const div = document.createElement('button');
+                div.type = 'button';
+                div.className = `w-full text-left p-4 rounded-xl border-2 border-slate-800 bg-spooky-void/50 hover:bg-purple-950/20 hover:border-spooky-necro transition-all flex flex-col gap-1.5 focus:ring-4 focus:ring-spooky-necro focus:outline-none`;
+                div.onclick = () => selectThesis(item.id, item.scoreEffect, item.hpEffect, item.feedback, item.title);
+
+                div.innerHTML = `
+                    <div class="flex items-center justify-between w-full">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">${item.title}</span>
+                    </div>
+                    <p class="text-sm font-serif font-bold text-slate-200">"${item.text}"</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function selectThesis(thesisId, scoreEffect, hpEffect, feedback, titleText) {
+            state.thesisId = thesisId;
+            state.resolve += hpEffect;
+            state.score = calculateScore();
+
+            // Inventory Upgrade - Dynamic weapon equipment name based on chosen Path
+            const invBlade = document.getElementById('inv-blade');
+            
+            if (thesisId.includes('strong')) {
+                invBlade.textContent = "Left Path Greatsword";
+                invBlade.className = "text-spooky-ghost font-black";
+                announceToScreenReader("Excellent choice. Equipped Left Path Greatsword weapon asset.");
+            } else if (thesisId.includes('center')) {
+                invBlade.textContent = "Center Path Broadsword";
+                invBlade.className = "text-spooky-gold font-bold";
+                announceToScreenReader("Center path selected. Equipped Center Path Broadsword asset.");
+            } else {
+                invBlade.textContent = "Right Path Dagger";
+                invBlade.className = "text-slate-500 font-bold";
+                announceToScreenReader("Reckless choice. Equipped weak Right Path Dagger weapon asset.");
+            }
+
+            state.currentStage = 3;
+            updateStats();
+            setupEvidenceOptions();
+            showScreen('stage3');
+            triggerModal("Thesis Weapon Forged!", feedback, thesisId.includes('strong') ? "🔥" : thesisId.includes('center') ? "⚡" : "⚠️");
+        }
+
+        // Setup Evidence/Shielding Options
+        function setupEvidenceOptions() {
+            const container = document.getElementById('evidenceOptions');
+            container.innerHTML = '';
+
+            const evidencePool = {
+                Affirmative: [
+                    {
+                        id: 'aff_weak_ev',
+                        title: 'Fragile Opinions & General Rumors (Weak)',
+                        pt1: "A lot of people I know went to university and got massive houses, making their families super proud of them.",
+                        pt2: "Going to college also allows you to make lots of cool friends and learn how to study for big tests properly.",
+                        feedback: "Sir Sage sighs: 'These are soft personal anecdotes. They shatter instantly under scholarly evaluation!'",
+                        scoreEffect: 0,
+                        hpEffect: -25
+                    },
+                    {
+                        id: 'aff_strong_ev',
+                        title: 'Empirical Census Metrics & Critical Frameworks (Strong)',
+                        pt1: "Empirical census metrics compiled by the Georgetown Center on Education and the Workforce proving degree holders average $1 million more in lifetime earnings than non-degree peers.",
+                        pt2: "The classical liberal arts history framework, demonstrating how systematic analysis of complex texts trains workers to evaluate system biases.",
+                        feedback: "Sir Sage yells: 'Magnificent! You have raised the Aegis of Authority. Factual statistics provide undeniable rhetorical armor!'",
+                        scoreEffect: 2,
+                        hpEffect: 15
+                    }
+                ],
+                Negative: [
+                    {
+                        id: 'neg_weak_ev',
+                        title: 'Emotional Assertions & Broad Stereotypes (Weak)',
+                        pt1: "Many students with diplomas end up drowning in millions of dollars of absolute misery while working basic retail positions.",
+                        pt2: "Trade professionals learn how to fix actual pipes and wiring, whereas college grads just look at slides in boring classrooms.",
+                        feedback: "Sir Sage sighs: 'Hyperbolic claims and aggressive bias diminish your academic credibility. Slay with logic, not anger!'",
+                        scoreEffect: 0,
+                        hpEffect: -25
+                    },
+                    {
+                        id: 'neg_strong_ev',
+                        title: 'Federal Reserve Data & Trade Wage Indexes (Strong)',
+                        pt1: "Federal Reserve Board data tracking average student loan balances exceeding $37,000, illustrating long-term financial deficits for low-wage graduates.",
+                        pt2: "Bureau of Labor Statistics surveys demonstrating that modern mechanical fields (HVAC, electrical masters) offer rapid certifications and wages starting at $60,000.",
+                        feedback: "Sir Sage yells: 'Incredible protection! Hard labor indices and Reserve statistics form an impenetrable fortress of support.'",
+                        scoreEffect: 2,
+                        hpEffect: 15
+                    }
+                ]
+            };
+
+            const selectedPool = evidencePool[state.stance];
+            selectedPool.forEach((item) => {
+                const isStrong = item.title.includes('(Strong)');
+                const div = document.createElement('button');
+                div.type = 'button';
+                div.className = `w-full text-left p-4 rounded-xl border-2 border-slate-800 bg-spooky-void/50 hover:bg-pink-950/20 hover:border-spooky-pink transition-all flex flex-col gap-2 focus:ring-4 focus:ring-spooky-necro focus:outline-none`;
+                div.onclick = () => selectEvidence(item.id, item.scoreEffect, item.hpEffect, item.feedback);
+
+                div.innerHTML = `
+                    <div class="flex items-center justify-between w-full">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">${item.title}</span>
+                        <span class="text-[9px] font-black px-2 py-0.5 rounded-full ${isStrong ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-red-950 text-red-400 border border-red-800'}">${isStrong ? 'Empirical' : 'Anecdotal'}</span>
+                    </div>
+                    <div class="bg-spooky-abyss p-3 rounded-lg border border-slate-800 w-full text-xs text-slate-400 font-bold space-y-1">
+                        <p class="text-slate-300"><span class="text-spooky-necro" aria-hidden="true">🛡️</span> <span class="sr-only">Rune Option 1:</span> ${item.pt1}</p>
+                        <p class="text-slate-300 mt-1"><span class="text-spooky-necro" aria-hidden="true">🛡️</span> <span class="sr-only">Rune Option 2:</span> ${item.pt2}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function selectEvidence(evidenceId, scoreEffect, hpEffect, feedback) {
+            state.evidenceId = evidenceId;
+            state.resolve += hpEffect;
+            state.score = calculateScore();
+
+            // Inventory Upgrade
+            const invShield = document.getElementById('inv-shield');
+            if (evidenceId.includes('strong')) {
+                invShield.textContent = "Aegis of Empirical Proof";
+                invShield.className = "text-spooky-ghost font-black";
+                announceToScreenReader("Equipped Aegis of Empirical Proof shield asset.");
+            } else {
+                invShield.textContent = "Fragile Wood Shield";
+                invShield.className = "text-slate-500 font-bold";
+                announceToScreenReader("Equipped weak Fragile Wood Shield asset.");
+            }
+
+            state.currentStage = 4;
+            updateStats();
+            renderSortPuzzle();
+            showScreen('stage4');
+            triggerModal("Empirical Shield Gained!", feedback, evidenceId.includes('strong') ? "🛡️" : "⚠️");
+        }
+
+        // Render sorting puzzle (Stage 4 - Accessible list sequence with explicit aria-labels)
+        function renderSortPuzzle() {
+            const container = document.getElementById('sortContainer');
+            container.innerHTML = '';
+
+            state.paragraphs.forEach((p, idx) => {
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between p-3.5 bg-spooky-void rounded-xl border-2 border-slate-800 shadow-retro-sm text-xs font-bold text-slate-300";
+                div.setAttribute('role', 'listitem');
+                div.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-6 h-6 rounded bg-spooky-necro text-spooky-void flex items-center justify-center font-black" aria-hidden="true">${idx + 1}</span>
+                        <p class="font-serif">${p.text}</p>
+                    </div>
+                    <div class="flex items-center space-x-1 shrink-0">
+                        <button type="button" aria-label="Move '${p.text}' Up" onclick="moveParagraph(${idx}, -1)" class="p-1 hover:bg-slate-800 rounded text-slate-400 font-black focus:ring-2 focus:ring-spooky-necro focus:outline-none" ${idx === 0 ? 'style="opacity:0.2; pointer-events:none;" aria-disabled="true"' : ''}>
+                            🔼
+                        </button>
+                        <button type="button" aria-label="Move '${p.text}' Down" onclick="moveParagraph(${idx}, 1)" class="p-1 hover:bg-slate-800 rounded text-slate-400 font-black focus:ring-2 focus:ring-spooky-necro focus:outline-none" ${idx === state.paragraphs.length - 1 ? 'style="opacity:0.2; pointer-events:none;" aria-disabled="true"' : ''}>
+                            🔽
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function moveParagraph(idx, direction) {
+            const target = idx + direction;
+            if (target < 0 || target >= state.paragraphs.length) return;
+
+            // Swap positions
+            const temp = state.paragraphs[idx];
+            state.paragraphs[idx] = state.paragraphs[target];
+            state.paragraphs[target] = temp;
+
+            renderSortPuzzle();
+            announceToScreenReader(`Swapped layout position ${idx + 1} with ${target + 1}.`);
+        }
+
+        function checkParagraphSort() {
+            let correct = true;
+            state.paragraphs.forEach((p, idx) => {
+                if (p.correctOrder !== idx) correct = false;
+            });
+
+            if (correct) {
+                state.resolve += 15;
+                state.currentStage = 5;
+                state.score = calculateScore();
+
+                // Inventory Upgrade
+                const invGreaves = document.getElementById('inv-greaves');
+                invGreaves.textContent = "Sentinel Armor Plates";
+                invGreaves.className = "text-spooky-ghost font-black";
+
+                updateStats();
+                showScreen('stage5');
+                triggerModal("Armor Perfectly Aligned!", "Sir Sage cheers: 'Superb! An ordered five-paragraph outline shields your core argument from structural breakdown.'", "🛡️");
+            } else {
+                state.resolve -= 20;
+                updateStats();
+                triggerModal("Structural Fracture! ❌", "Sir Sage shouts: 'Warning! The structural plates are misaligned. Remember: Introductions initiate the claim, body arguments follow, the Counterargument concessions come before the final Conclusion.'", "💀");
+            }
+        }
+
+        // Grammar Battles (Stage 5)
+        function answerGrammar(questionId, result) {
+            const isCorrect = (result === 'correct');
+
+            if (questionId === 1) {
+                state.grammar1Answered = true;
+                state.grammar1Correct = isCorrect;
+                const btnW = document.getElementById('btn-g1-w');
+                const btnC = document.getElementById('btn-g1-c');
+
+                btnW.className = "text-left p-3 rounded-lg border-2 border-red-600 bg-red-950/20 text-xs font-bold text-red-400 cursor-not-allowed pointer-events-none";
+                btnC.className = "text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-950/20 text-xs font-bold text-emerald-400 cursor-not-allowed pointer-events-none shadow-retro-sm";
+            } else {
+                state.grammar2Answered = true;
+                state.grammar2Correct = isCorrect;
+                const btnC = document.getElementById('btn-g2-c');
+                const btnW = document.getElementById('btn-g2-w');
+
+                btnW.className = "text-left p-3 rounded-lg border-2 border-red-600 bg-red-950/20 text-xs font-bold text-red-400 cursor-not-allowed pointer-events-none";
+                btnC.className = "text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-950/20 text-xs font-bold text-emerald-400 cursor-not-allowed pointer-events-none shadow-retro-sm";
+            }
+
+            if (isCorrect) {
+                state.resolve += 15;
+                state.score = calculateScore();
+                updateStats();
+                triggerModal("Phantom Banished!", "Sir Sage bellows: 'Excellent striking! Slaying that run-on purifies your conventions rubric.'", "🗡️");
+            } else {
+                state.resolve -= 30;
+                state.score = calculateScore();
+                updateStats();
+                triggerModal("Syntax Curse Triggered! 💀", "Sir Sage gasps: 'Aagh! That error breaks clause boundaries, dragging your score potential down.'", "👾");
+            }
+
+            // Both challenges finished -> Finale
+            if (state.grammar1Answered && state.grammar2Answered) {
+                setTimeout(() => {
+                    endQuest();
+                }, 1800);
+            }
+        }
+
+        // Complete Quest Results Page
+        function endQuest() {
+            state.currentStage = 6;
+            state.score = calculateScore();
+            updateStats();
+            showScreen('stage6');
+
+            document.getElementById('finalScore').textContent = state.score;
+            
+            const badge = document.getElementById('finalRankBadge');
+            const message = document.getElementById('placementMessage');
+
+            if (state.score >= 6) {
+                badge.className = "bg-spooky-ghost text-spooky-void text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full comic-border shadow-retro-sm";
+                badge.textContent = "GRAND MASTER OF THE INK-GUILD! 🏆";
+                message.textContent = "Exemplary Level: Direct Entry to ENGL 1301/1302";
+                message.className = "text-xs font-black px-3 py-1.5 rounded-full bg-emerald-950 text-emerald-400 comic-border shadow-retro-sm";
+                announceToScreenReader("Raided completed! You achieved an exemplary score of " + state.score + " points out of 8.");
+            } else if (state.score >= 5) {
+                badge.className = "bg-spooky-gold text-spooky-void text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full comic-border shadow-retro-sm";
+                badge.textContent = "SENTRY OF THE WRITING CHAMBER 🛡️";
+                message.textContent = "Passing Level: Entry to ENGL 1301";
+                message.className = "text-xs font-black px-3 py-1.5 rounded-full bg-yellow-950 text-yellow-400 comic-border shadow-retro-sm";
+                announceToScreenReader("Raided completed! You achieved a passing score of " + state.score + " points out of 8.");
+            } else {
+                badge.className = "bg-spooky-blood text-spooky-void text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full comic-border shadow-retro-sm";
+                badge.textContent = "CURSED SCRIBBLER UNDERCLASS 💀";
+                message.textContent = "Remedial Level: Non-Credit Developmental Required";
+                message.className = "text-xs font-black px-3 py-1.5 rounded-full bg-red-950 text-red-400 comic-border shadow-retro-sm";
+                announceToScreenReader("Raided completed! You achieved a remedial score of " + state.score + " points out of 8.");
+            }
+
+            // Set up diagnostic highlights
+            const r1I = document.getElementById('r1-icon');
+            const r1D = document.getElementById('r1-desc');
+            const r2I = document.getElementById('r2-icon');
+            const r2D = document.getElementById('r2-desc');
+            const r3I = document.getElementById('r3-icon');
+            const r3D = document.getElementById('r3-desc');
+            const r4I = document.getElementById('r4-icon');
+            const r4D = document.getElementById('r4-desc');
+
+            // 1. Focus
+            r1I.textContent = "🟢";
+            r1D.textContent = "Firm position chosen with zero fenceriding mistakes.";
+
+            // 2. Organization
+            r2I.textContent = "🟢";
+            r2D.textContent = "Cohesive five-paragraph outline accurately arranged.";
+
+            // 3. Support
+            if (state.evidenceId && state.evidenceId.includes('strong')) {
+                r3I.textContent = "🟢";
+                r3D.textContent = "Strong studies and specific historical details successfully gathered.";
+            } else {
+                r3I.textContent = "🟡";
+                r3D.textContent = "Vague anecdotes used. Gather precise metrics for better impact.";
+            }
+
+            // 4. Grammar
+            const correctGrammarCount = (state.grammar1Correct ? 1 : 0) + (state.grammar2Correct ? 1 : 0);
+            if (correctGrammarCount === 2) {
+                r4I.textContent = "🟢";
+                r4D.textContent = "Slayed both grammar blunders! Run-ons and splices avoided.";
+            } else if (correctGrammarCount === 1) {
+                r4I.textContent = "🟡";
+                r4D.textContent = "Watch out—one grammar mistake bypassed your armor.";
+            } else {
+                r4I.textContent = "🔴";
+                r4D.textContent = "Multiple sentence blunders left unchecked. Conventions compromised.";
+            }
+        }
+
+
+        // ==================== LIBRARY ARCHIVE DATABASE ====================
+        const archiveDatabase = {
+            3: {
+                title: "Neutrality and Basic Outlining",
+                essay: `
+                    <p class="font-bold border-b border-comic-dark pb-2 mb-3">Prompt: Is a college degree worth the investment?</p>
+                    <p class="text-red-700 bg-red-100/40 p-2.5 rounded comic-border-2 text-xs font-semibold mb-3" aria-label="TSI Score rating is 3">❌ Score Point: 3 (Below Passing / Needs Significant Development)</p>
+                    
+                    <p><span class="bg-red-200 px-1 font-bold">Today colleges are super expensive but people also need to get good jobs.</span> Many people say college is a total scam because you pay so much money. On the other hand, a lot of people think having a diploma is amazing. Both of these points have very good facts. Personally, I think it is totally good for some folks but trade school is much better for others, it all depends on what you want to do.</p>
+                    
+                    <p>First of all, trade schools teach you actual skills in just a few weeks. Plumbers and mechanics make lots of money right away and my uncle did that and got a huge truck. If you go to university you might spend four years studying boring books that you will never use in real life.</p>
+                    
+                    <p><span class="bg-red-200 px-1 font-bold">Second, university can be cool for some people.</span> You get to live in dorms and study business. It makes your parents really proud when you walk across the stage. But you also have to get massive loans and pay them back forever which sucks.</p>
+                    
+                    <p>In conclusion, college is definitely worth it for some people but completely useless for others. It depends on your mindset and whether you want to do trades or not. Both options are totally fine.</p>
+                `,
+                feedback: `
+                    <p><strong>1. Fence-riding stance:</strong> The introduction is completely neutral and explicitly avoids taking a concrete stand. This violates the primary rule of the WritePlacer persuasive rubrics.</p>
+                    <p class="mt-2"><strong>2. Punctuation blunders:</strong> Features multiple comma splices (e.g., "...trade school is much better for others, it all depends...") and informal, casual slang ("socks", "super expensive").</p>
+                    <p class="mt-2"><strong>3. Weak development:</strong> Mostly relies on vague personal anecdotes ("my uncle got a huge truck") rather than analytical reasoning or authoritative figures.</p>
+                `,
+                rubricText: "Below Passing (Remedial)"
+            },
+            5: {
+                title: "Clear Decisive Track with Simple Backing",
+                essay: `
+                    <p class="font-bold border-b border-comic-dark pb-2 mb-3">Prompt: Is a college degree worth the investment?</p>
+                    <p class="text-yellow-700 bg-yellow-100/50 p-2.5 rounded comic-border-2 text-xs font-semibold mb-3" aria-label="TSI Score rating is 5 to 6">⚠️ Score Point: 5/6 (Passing / College Ready)</p>
+                    
+                    <p><span class="bg-yellow-200 px-1 font-bold">As inflation rises, many young people are starting to question whether higher education is still viable.</span> While trade paths offer good options, a traditional college degree is still absolutely worth the investment because it raises your lifetime earning potentials and teaches you how to think critically.</p>
+                    
+                    <p>First, college graduates make much more money over their careers. Although tuition is high, studies show that people with degrees usually find professional jobs with better medical benefits and retirement stability than high school graduates. For example, business majors can get internships that help them step right into high salary jobs immediately after graduation.</p>
+                    
+                    <p><span class="bg-yellow-200 px-1 font-bold">Additionally, college prepares you for complex issues.</span> It teaches you how to research facts and write logically. When you are in classes, professors challenge you to analyze data and check reliable sources before coming to conclusions. This intellectual growth is highly sought-after by top employers.</p>
+                    
+                    <p>On the other hand, vocational careers do provide great pay without college debt. However, vocational fields are often physically demanding and have lower ceiling wage caps. A university degree allows for career pivots and long-term security.</p>
+                    
+                    <p>In conclusion, college remains a premier investment. Despite the rising tuition costs, the financial returns and critical thinking abilities gained from higher education prepare students for future achievement.</p>
+                `,
+                feedback: `
+                    <p><strong>1. Decisive stance:</strong> Features a clear, one-sided thesis statement in the intro paragraph, giving the entire essay an immediate passing foundation.</p>
+                    <p class="mt-2"><strong>2. Functional structure:</strong> Uses a neat four-paragraph outline (Intro, Body 1, Body 2, simple Counterargument, and Conclusion).</p>
+                    <p class="mt-2"><strong>3. Clear but basic support:</strong> Mentions concepts of critical thinking and career pivots. However, it lacks specific, quantified studies or precise names/authorities, limiting its potential score to a 5 or 6.</p>
+                `,
+                rubricText: "College Ready"
+            },
+            8: {
+                title: "Highly Authoritative Masterpiece",
+                essay: `
+                    <p class="font-bold border-b border-comic-dark pb-2 mb-3">Prompt: Is a college degree worth the investment?</p>
+                    <p class="text-emerald-700 bg-emerald-100/50 p-2.5 rounded comic-border-2 text-xs font-semibold mb-3" aria-label="TSI Score rating is 8">🏆 Score Point: 8 (Exemplary / Superior Placement)</p>
+                    
+                    <p>Although exponential tuition increases have caused contemporary financial anxiety, the long-term utility of higher education remains undisputed. <span class="bg-emerald-200 px-1 font-bold">A traditional college degree is still a premier financial and intellectual investment because it provides unrivaled lifelong economic returns and systematically cultivates the sophisticated analytical skills necessary to navigate a shifting technology workforce.</span></p>
+                    
+                    <p>Primarily, the quantifiable economic rewards of a university degree far outweigh the immediate costs of student loan balances. According to census studies compiled by the Georgetown University Center on Education and the Workforce, individuals possessing a bachelor’s degree earn an average of $1.2 million more over their professional lifespans than peers who hold only a high school diploma. This robust metrics baseline shows that the initial debt incurred serves as a temporary barrier to achieving long-term economic mobility.</p>
+                    
+                    <p>Beyond economic rewards, higher education systematically builds a critical-thinking capacity that technical certificates simply do not provide. <span class="bg-emerald-200 px-1 font-bold">By engaging in literary analysis and rigorous academic writing, students learn how to deconstruct complex arguments and evaluate structural biases.</span> In a modern economy increasingly shaped by automation, the ability to adapt, synthesize complex data, and manage systems is far more valuable than a singular manual specialization.</p>
+                    
+                    <p>Admittedly, opponents argue that specialized technical vocations offer immediate, debt-free incomes. While trades represent vital vocational tracks, they are frequently vulnerable to physical wear and have lower salary ceilings. Consequently, higher education acts as a critical insurance policy against shifting labor markets.</p>
+                    
+                    <p>Ultimately, higher education remains the cornerstone of professional and personal development. When viewed through the lens of lifetime earning potential and cognitive adaptability, university instruction is not merely a high-priced credential, but a vital pathway to thriving in contemporary society.</p>
+                `,
+                feedback: `
+                    <p><strong>1. Elegant thesis statement:</strong> Utilizes a highly complex subordinating conjunction ("Although...") and embeds sophisticated, direct preview coordinates (lifelong economic returns, cognitive adaptability).</p>
+                    <p class="mt-2"><strong>2. High-quality academic vocabulary:</strong> Uses advanced academic phrasing ("quantifiable", "cornerstone", "systematically", "rhetorical credibility") and maintains a flawless conventions standard.</p>
+                    <p class="mt-2"><strong>3. Authoritative, specific support:</strong> Cites explicit academic studies (e.g., "Georgetown University Center on Education and the Workforce") rather than casual generalizations.</p>
+                `,
+                rubricText: "Exemplary Score"
+            }
+        };
+
+        function selectArchiveScore(scoreId) {
+            const data = archiveDatabase[scoreId];
+            if (!data) return;
+
+            // Highlight buttons
+            const scores = [3, 5, 8];
+            scores.forEach(s => {
+                const btn = document.getElementById(`btn-arc-${s}`);
+                if (s === scoreId) {
+                    btn.className = `px-4 py-2.5 text-xs font-black rounded-xl comic-border shadow-retro transition bg-spooky-gold text-spooky-void focus:ring-4 focus:ring-white focus:outline-none`;
+                    btn.setAttribute('aria-pressed', 'true');
+                } else {
+                    btn.className = `px-4 py-2.5 text-xs font-black rounded-xl comic-border shadow-retro-sm transition focus:ring-4 focus:ring-white focus:outline-none ${s === 3 ? 'bg-red-950/40 hover:bg-red-900/40 text-red-400' : s === 5 ? 'bg-amber-950/40 hover:bg-amber-900/40 text-amber-400' : 'bg-emerald-950/40 hover:bg-emerald-900/40 text-emerald-400'}`;
+                    btn.setAttribute('aria-pressed', 'false');
+                }
+            });
+
+            document.getElementById('archiveHeaderScore').textContent = scoreId;
+            document.getElementById('archiveEssayBody').innerHTML = data.essay;
+            document.getElementById('archiveFeedbackText').innerHTML = data.feedback;
+
+            // Update bottom rubric badge
+            const rubricBadge = document.getElementById('archiveRubricResult');
+            rubricBadge.textContent = data.rubricText;
+            if (scoreId === 3) {
+                rubricBadge.className = "text-[10px] font-black px-2.5 py-1.5 rounded-full inline-block uppercase bg-red-950 text-red-400 border-2 border-spooky-blood";
+            } else if (scoreId === 5) {
+                rubricBadge.className = "text-[10px] font-black px-2.5 py-1.5 rounded-full inline-block uppercase bg-amber-950 text-amber-400 border-2 border-spooky-ember";
+            } else {
+                rubricBadge.className = "text-[10px] font-black px-2.5 py-1.5 rounded-full inline-block uppercase bg-emerald-950 text-emerald-400 border-2 border-spooky-ghost";
+            }
+
+            announceToScreenReader(`Loaded draft specimens for TSI Score rating: ${scoreId}. Review the text and Sir Sage's critique notes.`);
+        }
+
+        // Run setup on load
+        window.onload = function() {
+            resetQuest();
+        };
+    </script>
+</body>
+</html>
